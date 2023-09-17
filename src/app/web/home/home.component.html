@@ -1,0 +1,14 @@
+<div id="container">
+    <banner [value]="home_banner"></banner>
+    <nav></nav>
+    <header [value]="header_one_home"></header>
+    <text [value]="content_one_home"></text>
+    <cred></cred>
+    <header [value]="header_two_home"></header>
+    <text [value]="content_two_home"></text>
+    <div id="features">
+        <div *ngFor="let feature of features">
+            <feature [value]="feature"></feature>
+        </div>
+    </div>
+</div>

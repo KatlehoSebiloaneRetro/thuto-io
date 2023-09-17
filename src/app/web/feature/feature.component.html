@@ -1,0 +1,18 @@
+<div id="container" *ngIf="value.swop==false">
+    <div id="content">
+        <div id="header">{{value.header}}</div>
+        <div id="content">{{value.content}}</div>
+    </div>
+    <div id="image">
+        <img src="{{value.link}}" class="img">
+    </div>
+</div>
+<div id="container" *ngIf="value.swop==true">
+    <div id="image">
+        <img src="{{value.link}}" class="img">
+    </div>
+    <div id="content">
+        <div id="header">{{value.header}}</div>
+        <div id="content">{{value.content}}</div>
+    </div>
+</div>
