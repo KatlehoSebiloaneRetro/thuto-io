@@ -9,7 +9,8 @@ import { HomeComponent } from './home/home.component';
 import { NavComponent } from './nav/nav.component';
 import { HeaderComponent } from './header/header.component';
 import { TextComponent } from './text/text.component';
-
+import {  RouterModule } from '@angular/router';
+import { ThutorComponent } from './thutor/thutor.component';
 
 
 @NgModule({
@@ -22,10 +23,12 @@ import { TextComponent } from './text/text.component';
     HomeComponent,
     NavComponent,
     HeaderComponent,
-    TextComponent
+    TextComponent,
+    ThutorComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ]
 })
 export class WebModule { }

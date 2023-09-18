@@ -10,6 +10,7 @@ export class TextComponent implements OnInit {
   constructor() { }
 
   @Input() value:any
+  @Input() bold:any
 
   ngOnInit(): void {
   }

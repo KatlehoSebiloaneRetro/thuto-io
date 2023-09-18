@@ -10,6 +10,7 @@ export class HeaderComponent implements OnInit {
   constructor() { }
 
   @Input() value:any
+  @Input() color:any
   ngOnInit(): void {
   }
 

@@ -12,7 +12,11 @@ export class HomeComponent implements OnInit {
   header_one_home = "Unlock academic success and financial inclusion with Thuto.io"
   content_one_home = "Thuto.io rewards students for their academic achievements with Thuto Coins, allowing them to access a range of products and services in our marketplace.<br/><br/><br/>Join us today and empower your future."
   header_two_home = "Unlock the power of academic achievement with Thuto Coins."
-  content_two_home = "huto.io revolutionizes education by rewarding students for their academic progress. With Thuto Coins, students can access a marketplace filled with products and services that contribute to their personal growth and financial inclusion. <br/><br/> Join the digital ecosystem that empowers students and drives economic transformation."
+  content_two_home = "Thuto.io revolutionizes education by rewarding students for their academic progress. With Thuto Coins, students can access a marketplace filled with products and services that contribute to their personal growth and financial inclusion. <br/><br/> Join the digital ecosystem that empowers students and drives economic transformation."
+  header_three_home = "Why does it work?"
+  content_three_home = "more(engagement + dedication) x Quality content ^ (real-world use of tokens)"
+  header_four_home = "="
+  content_four_home = "Financially Included, Smart, and Dedicated Youth"
 
   features = [
     {
@@ -34,6 +38,9 @@ export class HomeComponent implements OnInit {
       swop:false
     },
   ]
+
+  review1 = "'Absolutely Amazing ❤️' - Dikeledi"
+  review2 = "'I honestly cannot wait for my 5 year old to use thuto' - Mothusi"
   ngOnInit(): void {
   }
 

@@ -1,14 +1,21 @@
 <div id="container">
     <banner [value]="home_banner"></banner>
     <nav></nav>
-    <header [value]="header_one_home"></header>
+    <header [color]="'home-color'" [value]="header_one_home"></header>
     <text [value]="content_one_home"></text>
     <cred></cred>
-    <header [value]="header_two_home"></header>
+    <header [color]="'home-color'" [value]="header_two_home"></header>
     <text [value]="content_two_home"></text>
+    <review [value]="review1"></review>
     <div id="features">
         <div *ngFor="let feature of features">
             <feature [value]="feature"></feature>
         </div>
     </div>
+    <review [value]="review2"></review>
+    <header [color]="'home-color'" [value]="header_three_home"></header>
+    <text [value]="content_three_home"></text>
+    <header [color]="'home-color'" [value]="header_four_home"></header>
+    <text [value]="content_four_home"></text>
+    <footer></footer>
 </div>
