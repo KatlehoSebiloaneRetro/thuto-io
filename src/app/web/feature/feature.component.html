@@ -1,5 +1,5 @@
-<div id="container" *ngIf="value.swop==false">
-    <div id="content">
+<div id="container" *ngIf="value.swop==false && isfeature==(null||undefined)" class="{{isWhite}}">
+    <div id="content" >
         <div id="header">{{value.header}}</div>
         <div id="content">{{value.content}}</div>
     </div>
@@ -7,12 +7,23 @@
         <img src="{{value.link}}" class="img">
     </div>
 </div>
-<div id="container" *ngIf="value.swop==true">
+
+<div id="container" *ngIf="value.swop==true" class="{{isWhite}}">
     <div id="image">
         <img src="{{value.link}}" class="img">
     </div>
     <div id="content">
         <div id="header">{{value.header}}</div>
         <div id="content">{{value.content}}</div>
+    </div>
+</div>
+
+<div id="feature_cont" *ngIf="isfeature!=(null||undefined)" class="{{isWhite}}">
+    <div id="image_feat">
+        <img src="{{value.link}}" class="img_feat">
+    </div>
+    <div id="content_feat">
+        <header [color]="'home-color'" [value]="value.header"></header>
+        <text [value]="value.content"></text>
     </div>
 </div>

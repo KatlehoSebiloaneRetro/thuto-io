@@ -2,6 +2,13 @@
     display: flex
     justify-content: center
     align-items: center
+    padding:15px
+
+#feature_cont
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
     padding:2vw
 
 #content
@@ -9,9 +16,20 @@
 
 #image
     flex-basis: 25vw
-
+#image_feat
+     flex-basis: 25vw
+     max-width: 300px
 .img
     height: 20vw
+
+.img_feat
+    height: 10vh
+
+.white
+    color: white
+
+.black
+    color: black
 
 #header
     font-size: 2.0vw
@@ -21,3 +39,30 @@
 
 #content
     font-size: 1vw
+
+
+@media screen and (max-width:750px )
+    #container
+        flex-direction: column
+        max-width: 100vw
+
+    #content
+        width: 80vw
+        flex-basis: 40%
+        text-align: center
+        display: flex
+        align-items: center
+        justify-content: center
+        flex-direction: column
+
+    #header
+        font-size: 24px
+    #content
+        font-size: 16px
+    .img
+        height: 25vh
+    #image
+        padding:15px
+    .img_feat
+        height: 30vh
+    

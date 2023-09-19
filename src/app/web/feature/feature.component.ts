@@ -9,6 +9,8 @@ export class FeatureComponent implements OnInit {
 
   constructor() { }
   @Input() value:any
+  @Input() isWhite:any = "white"
+  @Input() isfeature:any
   
   ngOnInit(): void {
   }

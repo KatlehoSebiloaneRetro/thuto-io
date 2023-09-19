@@ -2,12 +2,47 @@
     <nav></nav>
     <header [color]="'thutor-color'" [value]="header_one_home"></header>
     <text [value]="content_one_home"></text>
+    <div style="display: flex;justify-content: center;align-items: center;padding:2vw">
+        <div id="login" style="margin-right: 2vw;font-weight: 600; text-decoration: none;"><a style="text-decoration: none;" href="https://docs.google.com/forms/d/e/1FAIpQLSdRjU_zYRIrJnBKyxhJV-bxNXfXWa9XjWo8XpNWXqff618ORA/viewform ">Join Thutor Now</a></div>
+    </div>
     <review [value]="review1"></review>
 
     <div id="features">
         <div *ngFor="let feature of features">
-            <feature [value]="feature"></feature>
+            <feature [value]="feature" [isWhite]="'black'"></feature>
         </div>
+    </div>
+
+    <header [color]="'thutor-color'" [value]="'How it works?'"></header>
+    <div style="display: flex;align-items: center;justify-content: center;">
+        <iframe width="100%" height="500px" src="https://www.youtube.com/embed/HEkTxyBP-Zk?si=knJFtWLCBJnAXccX" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+    <header [color]="'thutor-color'" [value]="'Ace Those Maths Exams!'"></header>
+    <div style="display: flex;align-items: center;justify-content: center;">
+        <div id="box-pricing">
+            <header  [value]="'For Only 500 A Month'"></header>
+            <div style="display: flex;justify-content: center;font-weight: 700; padding:25px; color:#ce7de8">PER MONTH</div>
+            <div style="display: flex;justify-content: center;font-weight: 400; padding:25px; ">You Get</div>
+            <div style="display: flex;justify-content: center;font-weight: 600; padding:25px; ">Weekly Lecture and Personalised Tutoring Sessions.</div>
+            <div style="display: flex;justify-content: center;font-weight: 600; padding:25px;  color: #0094cb;">“No Network? Do Not Worry! Every Session Is Recorded!”</div>
+            <div style="display: flex;justify-content: center;font-weight: 600; padding:25px; ">Micro-tasks Meant To Help You Achieve Mastery.</div>
+            <div style="display: flex;justify-content: center;font-weight: 600; padding:25px;  color: #0094cb;">“We Promise It Won’t Take You More Than 10 Minutes To Complete Each Task”</div>
+            <div style="display: flex;justify-content: center;font-weight: 600; padding:25px; ">Earn Thuto Coins Based On Your Personal Progress.</div>
+            <div style="display: flex;justify-content: center;font-weight: 600; padding:25px;  color: #0094cb;">“Spend Your Coins However You Like”</div>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdRjU_zYRIrJnBKyxhJV-bxNXfXWa9XjWo8XpNWXqff618ORA/viewform ">
+            <div style="background-color: #ce7de8; display: flex; justify-content: center; align-items: center; padding:25px; border-radius: 0px 0px 15px 15px;">Join the Revolution Today!</div>
+            </a>
+        </div> 
+    </div>
+    
+    
+    <header [color]="'thutor-color'" [value]="'Unlock your full potential with Thutor and revolutionize your learning experience.'"></header>
+    <div style="display: flex; justify-content: center; align-items: center;">
+        <div id="login" style="margin-right: 2vw;"><a href="https://docs.google.com/forms/d/e/1FAIpQLSdMC5UH3m41AOdcYeABsGcLOr7c9kHSlWHBSgs6bDygebHZBQ/viewform">Become a Thutor</a></div>
+        <div>
+            <img src="../../../assets/sign.png" id="img">
+        </div>
+        <div id="login" style="margin-left: 2vw;"><a href="https://docs.google.com/forms/d/e/1FAIpQLSdRjU_zYRIrJnBKyxhJV-bxNXfXWa9XjWo8XpNWXqff618ORA/viewform ">Get a Thutor</a></div>
     </div>
     
     <footer></footer>

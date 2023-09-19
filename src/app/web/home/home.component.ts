@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit {
   content_three_home = "more(engagement + dedication) x Quality content ^ (real-world use of tokens)"
   header_four_home = "="
   content_four_home = "Financially Included, Smart, and Dedicated Youth"
+  header_five_home = "Unlock the power of education and financial inclusion with Thuto.io."
 
   features = [
     {
@@ -38,6 +39,13 @@ export class HomeComponent implements OnInit {
       swop:false
     },
   ]
+
+  section ={
+    header:"Empower students with real-world financial skills.",
+    content:"Thuto.io goes beyond traditional academic rewards. By using tokens for financial activities like buying, saving, and investing, students gain practical experience in financial literacy. This empowers them to make informed decisions and prepares them for success in the real world. Join Thuto.io and unlock a brighter future for students today.",
+    link:"../../../assets/Thuto.io.png",
+    swop:false
+  }
 
   review1 = "'Absolutely Amazing ❤️' - Dikeledi"
   review2 = "'I honestly cannot wait for my 5 year old to use thuto' - Mothusi"
