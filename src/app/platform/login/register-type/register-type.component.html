@@ -1,0 +1,35 @@
+
+<div id="container" >
+    <div style="width: 80vw;">
+        <div style="font-weight: 600; font-size: 26px; text-align: left;padding-bottom:15px;padding-top: 65px;">
+            Choose account
+        </div>
+        <div>
+            Select an Account
+        </div>
+    </div>
+    <div style="flex-grow: 1; align-items: center; display: flex; flex-direction: column;">
+        <div  routerLink="/sign-in">
+            <div id="image_student"></div>
+            <div id="card_info">
+                <div id="card_title">Student Account</div>
+                <div id="card_details">Student Account</div>
+            </div>
+        </div>
+        <div  routerLink="/register">
+            <div id="image_parent"></div>
+            <div id="card_info">
+                <div id="card_title">Parent Account</div>
+                <div id="card_details">Parent Account </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div>
+        <button tuiButton [size]="'m'" class="tui-space_right-3 tui-space_bottom-3" id="actios" >Continue</button>
+    </div> -->
+    <div>
+        <button tuiButton appearance="outline" class="tui-space_right-3 tui-space_bottom-3" id="actios" [size]="'m'">Cancel</button>
+    </div>
+
+</div>

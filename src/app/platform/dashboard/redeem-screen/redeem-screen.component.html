@@ -1,0 +1,105 @@
+<div id="container">
+    <div id="content">
+ 
+        <img src="../../../../assets/back_arrow.png" alt="" routerLink="/transactions">
+        <p class="save">Redeem</p>
+        <p class="saving-explanation">Redeeming, for kids, is like turning their hard work into 
+            well-deserved rewards. It's the exciting moment when 
+            they can exchange the points, stickers, or tokens they 
+            earned for something special, acknowledging and 
+            celebrating their efforts and achievements.</p>
+
+        <div *ngIf="purchased==false">
+            <p class="voucher_types">Airtime Voucher</p>
+            <div style="display: flex; margin-left:2rem; margin-bottom:1rem">
+                <div *ngFor="let item of items">
+                    <img src="{{item.image}}" alt="" *ngIf="item.type =='airtime'" style="margin-left:10px" (click)="setItem(item)">
+                </div>
+            </div>
+            <div class="voucher_types" *ngIf="isAirtimeSelected">{{this.current_item.brand}}</div>
+            <form [formGroup]="amountForm" *ngIf="isAirtimeSelected">
+                <tui-input formControlName="value" class="actios">
+                Amount
+                  <input tuiTextfield />
+                </tui-input>
+            </form>
+            <button tuiButton  class="tui-space_right-3 tui-space_bottom-3" [size]="'m'" class="calculate" *ngIf="isAirtimeSelected" (click)="showDialog(template)">Purchase</button>
+            <p class="voucher_types">Online Shopping Voucher</p>
+            <div style="display: flex; margin-left:2rem;margin-bottom:1rem">
+                <div *ngFor="let item of items">
+                    <img src="{{item.image}}" alt="" *ngIf="item.type =='shopping'" style="margin-left:10px" (click)="setItem(item)">
+                </div>
+            </div>
+            <div class="voucher_types" *ngIf="isShoppingSelected">{{this.current_item.brand}}</div>
+            <form  [formGroup]="amountForm" *ngIf="isShoppingSelected">
+                <tui-input formControlName="value" class="actios">
+                Amount
+                  <input tuiTextfield />
+                </tui-input>
+            </form>
+            <button tuiButton  class="tui-space_right-3 tui-space_bottom-3" [size]="'m'" class="calculate" *ngIf="isShoppingSelected" (click)="showDialog(template)">Purchase</button>
+            <p class="voucher_types">Grocery Voucher</p>
+            <div style="display: flex; margin-left:2rem;margin-bottom:1rem">
+                <div *ngFor="let item of items">
+                    <img src="{{item.image}}" alt="" *ngIf="item.type =='grocery'" (click)="setItem(item)">
+                </div>
+            </div>
+            <div class="voucher_types" *ngIf="isGrocerySelected">{{this.current_item.brand}}</div>
+            <form [formGroup]="amountForm"  *ngIf="isGrocerySelected">
+                <tui-input formControlName="value" class="actios" >
+                Amount
+                  <input tuiTextfield />
+                </tui-input>
+            </form>
+            <button tuiButton  class="tui-space_right-3 tui-space_bottom-3" [size]="'m'" class="calculate"  *ngIf="isGrocerySelected" (click)="showDialog(template)">Purchase</button>
+            <p class="voucher_types">Entertainment Voucher</p>
+            <div style="display: flex; margin-left:2rem;margin-bottom:1rem">
+                <div *ngFor="let item of items">
+                    <img src="{{item.image}}" alt="" *ngIf="item.type =='entertainment'" (click)="setItem(item)">
+                </div>
+            </div>
+            <div class="voucher_types" *ngIf="isEntertainmentSelected">{{this.current_item.brand}}</div>
+            <form [formGroup]="amountForm"  *ngIf="isEntertainmentSelected">
+                <tui-input formControlName="value" class="actios" >
+                Amount
+                  <input tuiTextfield />
+                </tui-input>
+              </form>
+            <button tuiButton  class="tui-space_right-3 tui-space_bottom-3" [size]="'m'" class="calculate"  *ngIf="isEntertainmentSelected" (click)="showDialog(template)">Purchase</button>
+        </div>
+        <div *ngIf="purchased==true">
+            <p class="voucher_types">Purchase Successful [{{current_item.brand}}]</p>
+            <button tuiButton  class="tui-space_right-3 tui-space_bottom-3" [size]="'m'" class="calculate" (click)="back()" >Continue Shopping</button>
+        </div>
+
+    </div>
+    <div id="bar">
+        <app-bottom-menu></app-bottom-menu>
+    </div> 
+</div>
+
+
+<ng-template
+#template
+let-observer
+>
+<p>Are you sure you want to purchase a {{current_item.brand}} voucher? worth: TC {{amountForm.value.value}}</p>
+
+<button
+    size="m"
+    tuiButton
+    type="button"
+    class="tui-space_right-3"
+    (click)="purchaseItem()"
+>
+    Yes, I am sure
+</button>
+<button
+    size="m"
+    tuiButton
+    type="button"
+    (click)="observer.complete()"
+>
+    Cancel
+</button>
+</ng-template>

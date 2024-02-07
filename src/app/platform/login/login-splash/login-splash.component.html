@@ -1,0 +1,15 @@
+
+<div class="svg-background">
+    <tui-carousel  [duration]="2500" [(index)]="index">
+        <div id="slide-1" *tuiItem><img src="../../../../assets/splash_1.png" width="100%" height="90%"/></div>
+        <div id="slide-2" *tuiItem><img src="../../../../assets/splash_2.png" width="100%"  height="90%"/></div>
+        <div id="slide-3" *tuiItem><img src="../../../../assets/splash_3.png" width="100%"  height="90%"/></div>
+    </tui-carousel>
+    <div>
+        <button routerLink="/sign-in" tuiButton appearance="outline" class="tui-space_right-3 tui-space_bottom-3" id="actios" [size]="'m'">Sign In</button>
+    </div>
+    <div>
+        <button routerLink="/register-type" tuiButton [size]="'m'" class="tui-space_right-3 tui-space_bottom-3" id="actios" >Get Started</button>
+    </div>
+
+</div>

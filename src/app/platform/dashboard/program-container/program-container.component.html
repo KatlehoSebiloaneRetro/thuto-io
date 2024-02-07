@@ -1,0 +1,102 @@
+<div id="container">
+    <div id="content">
+        <div id="title">
+            Academic progress
+        </div>
+    <app-custom-tab [items]="items"></app-custom-tab>
+    <div *ngIf="activeItemIndex==0">
+        <div id="top">
+            <div id="title_sub">
+                Current Program
+            </div>
+            <div routerLink="/details">
+                <div id="image"></div>
+                <div id="card_info">
+                    <div id="card_title">Balanced Program</div>
+                    <div id="card_details">The Balanced Program is crafted for schools that adopt a holistic approach to education, providing a well-rounded curriculum that encompasses various subjects without specific emphasis on STEM or language.</div>
+                </div>
+            </div>
+           
+        </div>
+        <div>
+            <div id="title_sub_option">
+                Subject Stats
+            </div>
+            <div id="scroll_container">
+                <div *ngFor="let stat of subjectStats">
+                    <app-subject-stat [stats]="stat"></app-subject-stat>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="activeItemIndex==1" id="explainer">
+       <h2>What are programs</h2>
+       <p>Picture Thuto as your child's magical piggy bank 
+        for a brighter future. When you invest money into
+         your child's Thuto account, it transforms into 
+        Thuto Coins. These coins are like rewards your 
+        child earns for doing well in their studies.
+        
+        Here's the cool part: Thuto is super smart. 
+        Whether your child is acing everything or 
+        putting in their best effort, they earn Thuto Coins.
+        These coins show how they're growing and 
+        learning. Plus, any leftover coins can be saved for 
+        later or turned back into real money.
+        
+        So, by funding your child's Thuto account, you're 
+        giving them a fun way to learn, grow, and save for
+        the amazing future ahead!</p>
+
+        <h2>Types of programs</h2>
+        <h3>1.Universal Achievement Program</h3>
+        <p>
+           <b>Description:</b>  <br/>
+            This program is like a steady compass guiding
+            students across all subjects. It ensures a balanced 
+            focus on various subjects without bias.
+        </p>
+        <p>
+            <b>Benefits:</b><br/>
+            Students gain a well-rounded academic 
+            experience, encouraging consistent performance 
+            and readiness for diverse challenges.
+        </p>
+
+        <h3>2. STEM-Focused Program:</h3>
+        <p>
+            <b>Description:</b> <br/>
+            Tailored for schools with a STEM focus, this 
+            program emphasises subjects like Mathematics, 
+            Science, and Technology, aligning with the 
+            school's educational objectives.
+        </p>
+        <p>
+            <b>Benefits:</b><br/>
+            Encourages specialisation in STEM fields, 
+            preparing students for future careers in science, 
+            technology, engineering, and mathematics.
+        </p>
+        <h3>3. Personalized Achievement Plan:</h3>
+        <p>
+            <b>Description:</b> <br/>
+            This program is uniquely crafted for individual 
+            students, using their performance data to 
+            identify strengths and weaknesses. It's like a 
+            personal tutor, guiding them to reach specific 
+            academic goals.
+        </p>
+        <p>
+            <b>Benefits:</b><br/>
+            Addresses students' unique needs, 
+            helping them excel in areas where they may 
+            struggle, and creating a path toward their 
+            desired academic and career achievements.
+        </p>
+
+    </div>
+    </div>
+    <div id="bar">
+        <app-bottom-menu></app-bottom-menu>
+    </div> 
+</div>

@@ -1,0 +1,139 @@
+<div id="container">
+    <div id="content">
+ 
+        <img src="../../../../assets/back_arrow.png" alt="" routerLink="/transactions">
+        <p class="save">Save</p>
+        <p class="saving-explanation">For kids, having a savings account can instill financial 
+            responsibility, teach the importance of saving, and 
+            provide an opportunity to learn about interest and basic 
+            banking concepts, fostering a foundation for sound 
+            financial habits in the future.</p>
+        <img src="../../../../assets/savings_blocks.png" alt="">
+
+        <section  class="savings-info">
+        <p class="savings">Savings</p>
+        <p class="TC">TC {{saved.toFixed(2)}}</p>
+        <br>
+        <div class="buttons">
+          <form [formGroup]="searchForm">
+            <tui-input 
+            formControlName="value" 
+            [tuiTextfieldIcon]="'tuiIconDollarSignLarge'" 
+            >
+             Enter Amount
+              <input tuiTextfield />
+            </tui-input>
+          </form>
+          <br>
+        <button class="tui-space_right-3 tui-space_bottom-3" [size]="'m'" tuiButton class = "button" (click)="showDialog(templateSave)">Save</button>
+        <br>
+        <button class="tui-space_right-3 tui-space_bottom-3" [size]="'m'" appearance="'outline'" tuiButton class = "button" (click)="showDialog(templateDialog)">Withdraw</button>
+        </div>
+        <br>
+        <p class= "savings-calculator">Saving Calculator</p>
+        <br>
+        <p>*Please note that our calculators serve as guides, and 
+            actual payouts may vary based on factors such as the 
+            number of days in a month and the interest rates 
+            applicable on the investment's start date.</p>
+            <br>
+            <p class="explanation">*Enter any amount to estimate potential investment 
+                payouts.</p>
+                <br>
+                <p class="input-titles">Amount</p>
+                <form [formGroup]="searchForm">
+                    <tui-input 
+                    formControlName="initialDeposit" 
+                    [tuiTextfieldIconLeft]="'tuiIconDollarSignLarge'" 
+                    >
+                     Enter initial deposit amount
+                      <input tuiTextfield />
+                    </tui-input>
+                  </form>
+                <br><br>
+                <p class="input-titles">Monthly investment amount</p>
+                <form [formGroup]="searchForm">
+                    <tui-input 
+                    formControlName="monthlyPayment" 
+                    [tuiTextfieldIconLeft]="'tuiIconDollarSignLarge'" 
+                    >
+                    Monthly investment amount
+                      <input tuiTextfield />
+                    </tui-input>
+                  </form>
+                <br><br>
+                <p class="input-titles">Savings Period</p>
+                <form [formGroup]="searchForm">
+                  <tui-input 
+                  formControlName="savingPeriod" 
+                  [tuiTextfieldIconLeft]="'tuiIconDollarSignLarge'" 
+                  >
+                  Enter the number of months you want to save for.
+                    <input tuiTextfield />
+                  </tui-input>
+                </form>
+                <br><br>
+
+                <div *ngIf="savedCalculation!=0">
+                  <p class="input-titles">Possible earnings:</p>
+                  <p class="saved-amount">TC {{savedCalculation.toFixed(2)}}</p>
+                  <p class="saved-period">After {{searchForm.value.savingPeriod}} months is the money you would have.</p>
+                </div>
+                
+                <button tuiButton  class="tui-space_right-3 tui-space_bottom-3" [size]="'m'" type="submit" class="calculate" (click)="calculateTotalSavings()">Calculate</button>
+                </section>
+    </div>
+    <div id="bar">
+        <app-bottom-menu></app-bottom-menu>
+    </div> 
+</div>
+
+<ng-template
+#templateSave
+let-observer
+>
+<p>Are you sure you want to save TC{{searchForm.value.value}}</p>
+
+<button
+    size="m"
+    tuiButton
+    type="button"
+    class="tui-space_right-3"
+    (click)="createSaveTransaction()"
+>
+    Yes, I am sure
+</button>
+<button
+    size="m"
+    tuiButton
+    type="button"
+    (click)="observer.complete()"
+>
+    Cancel
+</button>
+</ng-template>
+
+<ng-template
+#templateDialog
+let-observer
+>
+<p>Are you sure you want to withdraw TC{{searchForm.value.value}}</p>
+
+<button
+    size="m"
+    tuiButton
+    type="button"
+    class="tui-space_right-3"
+    (click)="createWithdrawTransaction()"
+>
+    Yes, I am sure
+</button>
+<button
+    size="m"
+    tuiButton
+    type="button"
+    (click)="observer.complete()"
+>
+    Cancel
+</button>
+</ng-template>

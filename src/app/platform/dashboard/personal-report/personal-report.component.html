@@ -1,0 +1,92 @@
+<div>
+    <div>
+        <img src="../../../../assets/back_arrow.png" alt="" routerLink="/details">
+        <h1 style="margin: 2rem;font-family: 'montserrat';font-weight: 600; font-size: 18px; margin-bottom: 24px;">Your Personal Thuto Report:</h1>
+    </div>
+    <div style="margin: 2rem; padding-bottom: 2rem;">
+        <h2 style="font-family: 'montserrat';font-weight: 600;">Your Summary:</h2>
+        <div style="margin-top:24px">
+            <div style="display: flex; border:1px #ddd solid; padding:10px;border-radius: 15px 15px 0px 0px;"> <div style="flex-basis: 80%;">Best Subject:</div> <div style="flex-basis: 20%;">{{bestSubject.subject}}</div></div>
+            <div style="display: flex; border:1px #ddd solid; padding:10px;border-radius: 0px;"> <div style="flex-basis: 80%;">Worst Subject:</div> <div style="flex-basis: 20%;">{{WorstSubject.subject}}</div></div>
+            <div style="display: flex; border:1px #ddd solid; padding:10px;border-radius: 0px;"> <div style="flex-basis: 80%;">Lowest Spend:</div> <div style="flex-basis: 20%;">{{largestSpend.amount}}</div> </div>
+            <div style="display: flex; border:1px #ddd solid; padding:10px;border-radius: 0px;"> <div style="flex-basis: 80%;">Highest Spend:</div> <div style="flex-basis: 20%;">{{smallestSpend.amount}}</div> </div>
+        </div>
+    </div>
+    <div style="margin: 2rem;">
+        <h2 style="font-family: 'montserrat';font-weight: 600;">Your Subject Averages:</h2>
+        <div style="margin-top:24px">
+            <div style="display: flex; border:1px #ddd solid; padding:10px;border-radius: 15px 15px 0px 0px;"> <div style="flex-basis: 80%;">{{mapSubjectToCategory('Mathematics')}}:</div> <div style="flex-basis: 20%;">{{Ave_Mathematics.toFixed(2)}}</div></div>
+            <div style="display: flex; border:1px #ddd solid; padding:10px"> <div style="flex-basis: 80%;">{{mapSubjectToCategory('Life Orientation')}}:</div> <div style="flex-basis: 20%;">{{Ave_Life_Orientation.toFixed(2)}}</div> </div>
+            <div style="display: flex; border:1px #ddd solid; padding:10px"> <div style="flex-basis: 80%;">{{mapSubjectToCategory('Natural Science and Technology')}}:</div> <div style="flex-basis: 20%;">{{Ave_Natural_Science_and_Technology.toFixed(2)}}</div> </div>
+            <div style="display: flex; border:1px #ddd solid; padding:10px"> <div style="flex-basis: 80%;">{{mapSubjectToCategory('Economic Management Sciences')}}:</div> <div style="flex-basis: 20%;">{{Ave_Economic_Management_Sciences.toFixed(2)}}</div> </div>
+            <div style="display: flex; border:1px #ddd solid; padding:10px"> <div style="flex-basis: 80%;">{{mapSubjectToCategory('Social Science')}}:</div> <div style="flex-basis: 20%;">{{Ave_Social_Science.toFixed(2)}}</div> </div>
+            <div style="display: flex; border:1px #ddd solid; padding:10px"> <div style="flex-basis: 80%;">{{mapSubjectToCategory('English HL')}}:</div> <div style="flex-basis: 20%;">{{Ave_English_HL.toFixed(2)}}</div> </div>
+            <div style="display: flex; border:1px #ddd solid; padding:10px;border-radius: 0px 0px 15px 15px;"> <div style="flex-basis: 80%;">{{mapSubjectToCategory('Afrikaans FAL')}}:</div> <div style="flex-basis: 20%;">{{Ave_Afrikaans_FAL.toFixed(2)}}</div> </div>
+        </div>
+    </div>
+    <div style="margin: 2rem;">
+        <h2 style="font-family: 'montserrat';font-weight: 600;">Your Points:</h2>
+        <div style="margin-top:24px">
+            <div style="display: flex; border:1px #ddd solid; padding:10px;border-radius: 15px 15px 0px 0px;"> <div style="flex-basis: 80%;">Points You were given:</div> <div style="flex-basis: 20%;">{{totalDeposited.toFixed(2)}}</div></div>
+            <div style="display: flex; border:1px #ddd solid; padding:10px;border-radius: 0px;"> <div style="flex-basis: 80%;">Points you earned:</div> <div style="flex-basis: 20%;">{{TCCount}}</div> </div>
+            <div style="display: flex; border:1px #ddd solid; padding:10px;border-radius: 0px 0px 15px 15px;"> <div style="flex-basis: 80%;">Percentage:</div> <div style="flex-basis: 20%;">{{((TCCount/totalDeposited)*100).toFixed(2)}}</div> </div>
+        </div>
+    </div>
+    <div style="margin: 2rem; padding-bottom: 2rem;">
+        <h2 style="font-family: 'montserrat';font-weight: 600;">Your Spending:</h2>
+        <div style="margin-top:24px">
+            <div style="display: flex; border:1px #ddd solid; padding:10px;border-radius: 15px 15px 0px 0px;"> <div style="flex-basis: 80%;">Total balance:</div> <div style="flex-basis: 20%;">{{balance.toFixed(2)}}</div></div>
+            <div style="display: flex; border:1px #ddd solid; padding:10px;border-radius: 0px;"> <div style="flex-basis: 80%;">Total Spend:</div> <div style="flex-basis: 20%;">{{spent.toFixed(2)}}</div></div>
+            <div style="display: flex; border:1px #ddd solid; padding:10px;border-radius: 0px;"> <div style="flex-basis: 80%;">Total Saved:</div> <div style="flex-basis: 20%;">{{saved.toFixed(2)}}</div> </div>
+            <div style="display: flex; border:1px #ddd solid; padding:10px;border-radius: 0px;"> <div style="flex-basis: 80%;">Total Spend(%):</div> <div style="flex-basis: 20%;">{{((spent/TCCount)*-100).toFixed(2)}}</div> </div>
+            <div style="display: flex; border:1px #ddd solid; padding:10px;border-radius: 0px 0px 15px 15px;"> <div style="flex-basis: 80%;">Total Saved(%):</div> <div style="flex-basis: 20%;">{{((saved/TCCount)*100).toFixed(2)}}</div> </div>
+        </div>
+    </div>
+    <div style="margin: 2rem; padding-bottom: 2rem;">
+        <h2 style="font-family: 'montserrat';font-weight: 600;">Your Improvement Breakdown:</h2>
+        <div style="margin-top:24px">
+            <div style="display: flex; border:1px #ddd solid; padding:10px;border-radius: 15px 15px 0px 0px;"> <div style="flex-basis: 80%;">Improvement {{mapSubjectToCategory('Mathematics')}}</div> <div style="flex-basis: 20%;">{{calculateImprovementPercentage(Mathematics)?.toFixed(2)}}%</div></div>
+            <div style="display: flex; border:1px #ddd solid; padding:10px;border-radius: 0px;"> <div style="flex-basis: 80%;">Best {{mapSubjectToCategory('Mathematics')}} Mark:</div> <div style="flex-basis: 20%;">{{getHighestMark(Mathematics)?.toFixed(2)}}%</div></div>
+            <div style="display: flex; border:1px #ddd solid; padding:10px;border-radius: 0px;"> <div style="flex-basis: 80%;">Worst {{mapSubjectToCategory('Mathematics')}} Assessment:</div> <div style="flex-basis: 20%;">{{getAssessmentWithLowestMark(Mathematics).title}}</div></div>
+            <div style="display: flex; border:1px #ddd solid; padding:10px;border-radius: 0px 0px 15px 15px;"> <div style="flex-basis: 80%;">Worst {{mapSubjectToCategory('Mathematics')}} Mark:</div> <div style="flex-basis: 20%;">{{getLowestMark(Mathematics)?.toFixed(2)}}%</div></div>
+        </div>
+        <div style="margin-top:24px">
+           
+            <div style="display: flex; border:1px #ddd solid; padding:10px;;border-radius: 15px 15px 0px 0px;"> <div style="flex-basis: 80%;">Improvement {{mapSubjectToCategory('Life Orientation')}}:</div> <div style="flex-basis: 20%;">{{calculateImprovementPercentage(Life_Orientation)?.toFixed(2)}}%</div> </div>
+            <div style="display: flex; border:1px #ddd solid; padding:10px;border-radius: 0px;"> <div style="flex-basis: 80%;">Highest {{mapSubjectToCategory('Life Orientation')}}:</div> <div style="flex-basis: 20%;">{{getHighestMark(Life_Orientation)?.toFixed(2)}}%</div> </div>
+            <div style="display: flex; border:1px #ddd solid; padding:10px;border-radius: 0px"> <div style="flex-basis: 80%;">Worst {{mapSubjectToCategory('Life Orientation')}} Assessment:</div> <div style="flex-basis: 20%;">{{getAssessmentWithLowestMark(Life_Orientation).title}}</div></div>
+            <div style="display: flex; border:1px #ddd solid; padding:10px;border-radius: 0px 0px 15px 15px;"> <div style="flex-basis: 80%;">Lowest {{mapSubjectToCategory('Life Orientation')}}:</div> <div style="flex-basis: 20%;">{{getLowestMark(Life_Orientation)?.toFixed(2)}}%</div> </div>
+        </div>
+        <div style="margin-top:24px">
+            <div style="display: flex; border:1px #ddd solid; padding:10px;;border-radius: 15px 15px 0px 0px;"> <div style="flex-basis: 80%;">Improvement {{mapSubjectToCategory('Natural Science and Technology')}}:</div> <div style="flex-basis: 20%;">{{calculateImprovementPercentage(Natural_Science_and_Technology)?.toFixed(2)}}%</div> </div>
+            <div style="display: flex; border:1px #ddd solid; padding:10px;border-radius: 0px;"> <div style="flex-basis: 80%;">Highest {{mapSubjectToCategory('Natural Science and Technology')}}:</div> <div style="flex-basis: 20%;">{{getHighestMark(Natural_Science_and_Technology)?.toFixed(2)}}%</div> </div>
+            <div style="display: flex; border:1px #ddd solid; padding:10px;border-radius: 0px"> <div style="flex-basis: 80%;">Worst Assessment:</div> <div style="flex-basis: 20%;">{{getAssessmentWithLowestMark(Natural_Science_and_Technology).title}}</div></div>
+            <div style="display: flex; border:1px #ddd solid; padding:10px;border-radius: 0px 0px 15px 15px;"> <div style="flex-basis: 80%;">Lowest {{mapSubjectToCategory('Natural Science and Technology')}}:</div> <div style="flex-basis: 20%;">{{getLowestMark(Natural_Science_and_Technology)?.toFixed(2)}}%</div> </div>
+        </div>
+        <div style="margin-top:24px">
+            <div style="display: flex; border:1px #ddd solid; padding:10px;;border-radius: 15px 15px 0px 0px;"> <div style="flex-basis: 80%;">Improvement {{mapSubjectToCategory('Economic Management Sciences')}}:</div> <div style="flex-basis: 20%;">{{calculateImprovementPercentage(Economic_Management_Sciences)?.toFixed(2)}}%</div> </div>
+            <div style="display: flex; border:1px #ddd solid; padding:10px;border-radius: 0px;"> <div style="flex-basis: 80%;">Highest {{mapSubjectToCategory('Economic Management Sciences')}}:</div> <div style="flex-basis: 20%;">{{getHighestMark(Economic_Management_Sciences)?.toFixed(2)}}%</div> </div>
+            <div style="display: flex; border:1px #ddd solid; padding:10px;border-radius: 0px;"> <div style="flex-basis: 80%;">Worst  Assessment:</div> <div style="flex-basis: 20%;">{{getAssessmentWithLowestMark(Economic_Management_Sciences).title}}</div></div>
+            <div style="display: flex; border:1px #ddd solid; padding:10px;border-radius: 0px 0px 15px 15px;"> <div style="flex-basis: 80%;">Lowest {{mapSubjectToCategory('Economic Management Sciences')}}:</div> <div style="flex-basis: 20%;">{{getLowestMark(Economic_Management_Sciences)?.toFixed(2)}}%</div> </div>
+        </div>
+        <div style="margin-top:24px">
+            <div style="display: flex; border:1px #ddd solid; padding:10px;;border-radius: 15px 15px 0px 0px;"> <div style="flex-basis: 80%;">Improvement {{mapSubjectToCategory('Social Science')}}:</div> <div style="flex-basis: 20%;">{{calculateImprovementPercentage(Social_Science)?.toFixed(2)}}%</div> </div>
+            <div style="display: flex; border:1px #ddd solid; padding:10px;border-radius: 0px;"> <div style="flex-basis: 80%;">Highest {{mapSubjectToCategory('Social Science')}}:</div> <div style="flex-basis: 20%;">{{getHighestMark(Social_Science)?.toFixed(2)}}%</div> </div>
+            <div style="display: flex; border:1px #ddd solid; padding:10px;border-radius: 0px;"> <div style="flex-basis: 80%;">Worst Assessment:</div> <div style="flex-basis: 20%;">{{getAssessmentWithLowestMark(Social_Science).title}}</div></div>
+            <div style="display: flex; border:1px #ddd solid; padding:10px;border-radius: 0px 0px 15px 15px;"> <div style="flex-basis: 80%;">Lowest {{mapSubjectToCategory('Social Science')}}:</div> <div style="flex-basis: 20%;">{{getLowestMark(Social_Science)?.toFixed(2)}}%</div> </div>
+        </div>
+        <div style="margin-top:24px">
+            <div style="display: flex; border:1px #ddd solid; padding:10px;;border-radius: 15px 15px 0px 0px;"> <div style="flex-basis: 80%;">Improvement {{mapSubjectToCategory('English HL')}}:</div> <div style="flex-basis: 20%;">{{calculateImprovementPercentage(English_HL)?.toFixed(2)}}%</div> </div>
+            <div style="display: flex; border:1px #ddd solid; padding:10px;border-radius: 0px;"> <div style="flex-basis: 80%;">Highest {{mapSubjectToCategory('English HL')}}:</div> <div style="flex-basis: 20%;">{{getHighestMark(English_HL)?.toFixed(2)}}%</div> </div>
+            <div style="display: flex; border:1px #ddd solid; padding:10px;border-radius: 0px;"> <div style="flex-basis: 80%;">Worst Assessment:</div> <div style="flex-basis: 20%;">{{getAssessmentWithLowestMark(English_HL).title}}</div></div>
+            <div style="display: flex; border:1px #ddd solid; padding:10px;border-radius: 0px 0px 15px 15px;"> <div style="flex-basis: 80%;">Lowest {{mapSubjectToCategory('English HL')}}:</div> <div style="flex-basis: 20%;">{{getLowestMark(English_HL)?.toFixed(2)}}%</div> </div>
+        </div>
+        <div style="margin-top:24px">
+            <div style="display: flex; border:1px #ddd solid; padding:10px;;border-radius: 15px 15px 0px 0px;;"> <div style="flex-basis: 80%;">Improvement {{mapSubjectToCategory('Afrikaans FAL')}}:</div> <div style="flex-basis: 20%;">{{calculateImprovementPercentage(Afrikaans_FAL)?.toFixed(2)}}%</div> </div>
+            <div style="display: flex; border:1px #ddd solid; padding:10px;border-radius: 0px;"> <div style="flex-basis: 80%;">Highest {{mapSubjectToCategory('Afrikaans FAL')}}:</div> <div style="flex-basis: 20%;">{{getHighestMark(Afrikaans_FAL)?.toFixed(2)}}%</div> </div>
+            <div style="display: flex; border:1px #ddd solid; padding:10px;border-radius: 0px;"> <div style="flex-basis: 80%;">Worst  Assessment:</div> <div style="flex-basis: 20%;">{{getAssessmentWithLowestMark(Afrikaans_FAL).title}}</div></div>
+            <div style="display: flex; border:1px #ddd solid; padding:10px;border-radius: 0px 0px 15px 15px;"> <div style="flex-basis: 80%;">Lowest {{mapSubjectToCategory('Afrikaans FAL')}}:</div> <div style="flex-basis: 20%;">{{getLowestMark(Afrikaans_FAL)?.toFixed(2)}}%</div> </div>
+        </div>
+    </div>
+    
+</div>

@@ -1,0 +1,12 @@
+<div id="container" [style.background-color]="containerBackgroundColor">
+    <div id="bont">
+        <div id="name">
+            <span id="progress_color">{{mapSubjectToCategory(stats.subjectName)}}</span>
+        </div>
+        <div id="ring">
+            <tui-ring-chart class="chart" [value]="[perc,residue]" [size]="'s'">
+            </tui-ring-chart>
+        </div>
+        <div id="sm_"><b>{{stats.earned.toFixed(2)}}</b>/<b> {{stats.subjectWorth.toFixed(2)}}</b> <br/></div>
+    </div>
+</div>
