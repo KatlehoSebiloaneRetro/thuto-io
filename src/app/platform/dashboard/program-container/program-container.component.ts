@@ -41,7 +41,7 @@ loader = false
 programs:any = []
 programIDs:any = []
 testValue = new FormControl();
-client = new Client().setEndpoint('https://appwrite.flowspaceproducitivity.com/v1').setProject('654ef9645b3a060ec136');
+client = new Client().setEndpoint('https://thuto.appwrite.nexgenlabs.co.za/v1').setProject('672b43fb00096f3a294e');
 databases = new Databases(this.client);
 balance:any = 0
 spent:any = 0
@@ -52,8 +52,8 @@ transactions:any
 
 async ReadTransactions(){
   let promise = await this.databases.listDocuments(
-    "654ef9a9319f62f3952c",
-    "654ef9b9893d07c640ba",
+    "thuto",
+    "transactions",
     [Query.limit(500),Query.equal('owner',localStorage.getItem('studentID')?.split("@")[0]||'')]
   )
   return promise.documents;
@@ -63,7 +63,7 @@ async ReadTransactions(){
     this.transactions = await this.ReadTransactions()
     this.loader = true
     this.calculateDeposit()
-    this.http.get("https://server.flowspaceproducitivity.com:3500/score/subject_stats?studentId="+this.studentId+"&programId=basic_Program&depositAmount="+this.totalDeposited).subscribe(
+    this.http.get("http://localhost:6500/score/subject_stats?studentId="+this.studentId+"&programId=basic_Program&depositAmount="+this.totalDeposited).subscribe(
       (data:any)=>{
         this.subjectStats = data
         this.loader = false
@@ -72,7 +72,7 @@ async ReadTransactions(){
       }
     )
 
-    this.http.get("https://server.flowspaceproducitivity.com:3500/program/retrieve_all").subscribe(data=>{
+    this.http.get("http://localhost:6500/program/retrieve_all").subscribe(data=>{
       this.programs = data
       this.programs.forEach((elem:any)=>{
         this.programIDs.push(elem.id)

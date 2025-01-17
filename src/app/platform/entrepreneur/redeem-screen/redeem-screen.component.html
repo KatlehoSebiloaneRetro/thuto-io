@@ -1,0 +1,54 @@
+<div id="container">
+    <div id="content">
+ 
+        <img src="../../../../assets/back_arrow.png" alt="" routerLink="/ent-transactions">
+        <p class="save">Withdraw</p>
+        <p class="saving-explanation">Withdrawing Thuto Coins is the rewarding moment when studentpreneurs can turn their hard work into well-deserved earnings. After putting in time and effort building their businesses, studentpreneurs earn Thuto Coins reflecting their progress. Withdrawing allows them to transfer these coins from their digital wallets into their personal bank accounts. It's an exciting milestone celebrating their entrepreneurial achievements as the coins are exchanged for real money they can use to purchase goods, save for the future, or give back to their communities.</p>
+
+        <div *ngIf="purchased==false">
+            <p class="voucher_types">Withdraw Cash</p>
+            <form [formGroup]="amountForm" >
+                <tui-input formControlName="value" class="actios">
+                Amount
+                  <input tuiTextfield />
+                </tui-input>
+            </form>
+            <button tuiButton  class="tui-space_right-3 tui-space_bottom-3" [size]="'m'" class="calculate" (click)="showDialog(template)">Withdraw</button>
+
+        </div>
+        <div *ngIf="purchased==true">
+            <p class="voucher_types">Withdrawal Successful</p>
+            <button tuiButton  class="tui-space_right-3 tui-space_bottom-3" [size]="'m'" class="calculate" (click)="back()" >Withdraw Again</button>
+        </div>
+
+    </div>
+    <div id="bar">
+        <app-bottom-menu></app-bottom-menu>
+    </div> 
+</div>
+
+
+<ng-template
+#template
+let-observer
+>
+<p>Are you sure you want to withdraw TC {{amountForm.value.value}} from you TC Account into your nominated Bank Account? </p>
+
+<button
+    size="m"
+    tuiButton
+    type="button"
+    class="tui-space_right-3"
+    (click)="purchaseItem()"
+>
+    Yes, I am sure
+</button>
+<button
+    size="m"
+    tuiButton
+    type="button"
+    (click)="observer.complete()"
+>
+    Cancel
+</button>
+</ng-template>

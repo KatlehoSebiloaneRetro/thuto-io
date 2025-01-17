@@ -12,11 +12,20 @@ export class TransactionComponent implements OnInit {
 
   date:any
   isSavings:boolean =false
+  hide:boolean = true;
 
   ngOnInit(): void {
     this.date = new Date(parseInt(this.transaction.date)).toISOString().split("T")[0]
     if(this.transaction.account.toLowerCase().includes('saving')){
       this.isSavings=true;
+    }
+  }
+
+  isHidden(){
+    if(this.transaction.item_purchased.includes('bank') || this.transaction.item_purchased.toLowerCase().includes('entrepre')){
+      return false
+    }else{
+      return true
     }
   }
 

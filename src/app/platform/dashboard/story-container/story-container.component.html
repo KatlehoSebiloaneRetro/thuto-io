@@ -1,0 +1,56 @@
+<div id="container">
+    <div id="content">
+        <div id="title">
+            Thuto Updates
+        </div>
+    <app-custom-tab [items]="items"></app-custom-tab>
+
+    <div  id="stories-page" *ngIf="activeItemIndex==0">
+        <div>
+            <div>
+                <div id="text">
+                    <h2>To Complete</h2>
+                    <div>Complete to earn 10% of your Thuto Coins.</div>
+                </div> 
+                
+                <div>
+                    <app-story [stories]="stories" [showType]="false"></app-story>
+                </div>
+            </div>
+            <div>
+                <div id="text">
+                    <h2>Completed</h2>
+                    <div>Once you have completed all your stories, you will earn 
+                        10 % of your Thuto Coins.</div>
+                </div>
+                
+                <div>
+                    <app-story [stories]="stories" [showType]="true"></app-story>
+                </div>
+            </div>
+        </div>
+        <div id="bar">
+            <app-bottom-menu></app-bottom-menu>
+        </div>
+
+    </div>
+
+
+    <div *ngIf="activeItemIndex==1" id="explainer" style="min-height: 100vh;">
+        <div style="min-height:57vh; margin-top:20vh">
+            <img src="../../../../assets/thutorlogo.png" alt="">
+            <div id="text">Thutor is a personalised learning platform designed to help you close your learning gaps and earn the remainder of your Thuto Coins.
+                <br/> 
+                <br/> 
+                <br/> 
+                You can engage with your personal AI Thutor or Join live group tutoring sessions.
+                <br/>
+                <br/>
+        
+        </div>
+        </div>
+
+    <div id="bar">
+        <app-bottom-menu></app-bottom-menu>
+    </div> 
+</div>

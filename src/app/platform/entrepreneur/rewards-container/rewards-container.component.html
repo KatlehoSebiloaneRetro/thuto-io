@@ -1,0 +1,97 @@
+<div id="container">
+    <div id="content">
+        <div id="padder">
+            <div id="title">
+                Points and Rewards
+            </div>
+            <div id="input">
+                <form [formGroup]="searchForm">
+                    <tui-input 
+                    formControlName="value" 
+                    [tuiTextfieldIconLeft]="'tuiIconSearchLarge'" 
+                    >
+                     Search
+                      <input tuiTextfield />
+                    </tui-input>
+                  </form>
+            </div>
+            <app-custom-tab [items]="items" [isProgram]="false"></app-custom-tab>
+        </div>
+        <div *ngIf="activeItemIndex==0">
+            <section class="wallet">
+            <div class="balance">
+                <ul>
+                <li id="title-wallet">Your wallet balance</li>
+                <li id="balance-wallet"><b>TC {{balance}}</b></li>
+                </ul>
+            </div>
+            <div class="button-options">
+                <ul class="options">
+                <li>
+                    <figure>
+                    <img src="../../../../assets/top_up.png" alt="top up" class="image" routerLink="/ent-top-up" />
+                    <figcaption class="caption" >Top up</figcaption>
+                    </figure>
+                </li>
+                <li>
+                    <figure>
+                    <img src="../../../../assets/redeem.png" alt="redeem" class="image" routerLink="/ent-redeem" />
+                    <figcaption class="caption" >Withdraw</figcaption>
+                    </figure>
+                </li>
+                </ul>
+            </div>
+            </section>
+
+            <section class="transactions">
+            <div class="border">
+                <h4>Recent Transactions</h4>
+               
+                <div id="transaction-holder">
+                    <app-transaction *ngFor="let transaction of transactions" [transaction]="transaction"></app-transaction>
+                </div>
+            </div>
+            </section>
+        </div>
+        <div *ngIf="activeItemIndex==1"  id="padder">
+            <div id="center-description">This is the money you have spent throughout our platform</div>
+            <div id="total-header">Total spent</div>
+            <div id="amount">TC {{spent.toFixed(2)}}</div>
+
+            <div id="transaction-holder">
+                <div *ngFor="let t of spent_transactions">
+                        <app-transaction [transaction]="t"></app-transaction>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="activeItemIndex==2"  id="padder">
+            <div id="center-description"> This is money you earned through accomplishments</div>
+            <div id="total-header">Total earned</div>
+            <div id="amount">TC {{TCCount}}</div>
+            <div id="transaction-holder">
+                <app-transaction *ngFor="let transaction of schoolearned" [transaction]="transaction"></app-transaction>
+            </div>
+        </div>
+        <div *ngIf="activeItemIndex==3"  id="padder">
+            <div id="center-description">Opportunites you have because you are a studentpreneur,get funded, start, scale and grow your business or side hustle</div>
+            <div id="total-header">Latest Opportuntiues</div>
+            <div id="transaction-holder">
+                <div *ngFor="let opp of opps">
+                    <div id="border">
+                        <div id="transaction-description">
+                            <div><b>{{opp.item_purchased}}</b></div>
+                            <div>{{opp.date}}</div>
+                        </div>
+                        <div id="transaction-amount">
+                           <a href="{{opp.amount}}"><b>{{opp.amount}}</b></a>
+                        </div>
+                    </div>
+                    <div id="rule"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="bar">
+        <app-bottom-menu></app-bottom-menu>
+    </div> 
+</div>

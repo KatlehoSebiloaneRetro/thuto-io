@@ -35,8 +35,8 @@ export class ParentRegistrationComponent implements OnInit {
   });
 
   client = new Client()
-  .setEndpoint('https://appwrite.flowspaceproducitivity.com/v1')
-  .setProject('654ef9645b3a060ec136');
+  .setEndpoint('https://thuto.appwrite.nexgenlabs.co.za/v1')
+  .setProject('672b43fb00096f3a294e');
 
   databases = new Databases(this.client);
   account = new Account(this.client);
@@ -44,8 +44,8 @@ export class ParentRegistrationComponent implements OnInit {
 
   async ReadStudent(studentValue:any){
     let promise = await this.databases.listDocuments(
-      "654ef9a9319f62f3952c",
-      "659500443605a8e23728",
+      "thuto",
+      "students",
       [Query.equal('email',studentValue)]
     )
     return promise.documents[0];
@@ -85,7 +85,7 @@ export class ParentRegistrationComponent implements OnInit {
     }
 
     const promiseDatabase = this.databases.createDocument(
-        '654ef9a9319f62f3952c',
+        'thuto',
         '6595003dbcd19860aff5',
         ID.unique(),
         parent

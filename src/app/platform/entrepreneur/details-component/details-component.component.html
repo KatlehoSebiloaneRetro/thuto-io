@@ -1,0 +1,43 @@
+<div>
+    <div id="image" routerLink="/ent-program"></div>
+    <div routerLink="/details" *ngIf="isParentMode">
+        <form class="b-form" >
+            <tui-select
+                tuiTextfieldSize="l"
+                [formControl]="testValue"
+            >
+                Program
+                <input
+                    placeholder="Choose your child's program"
+                    tuiTextfield
+                />
+                <tui-data-list-wrapper
+                    *tuiDataList
+                    [items]="programIDs"
+                ></tui-data-list-wrapper>
+            </tui-select>
+            </form>
+        <button class="tui-space_right-3 tui-space_bottom-3" [size]="'m'" tuiButton class ="button" (click)="changeValue()">change program</button>
+    </div>
+    <button routerLink="/ent-personal" appearance="outline" class="tui-space_right-3 tui-space_bottom-3" [size]="'m'" tuiButton class ="button" (click)="changeValue()">View Thuto Report</button>
+    <div id="explainer">
+        <h2>Balanced Program:</h2>
+        <h2>Description:</h2>
+        <p>The Balanced Program is crafted for schools that adopt a holistic approach to education, providing a well-rounded curriculum that encompasses various subjects without specific emphasis on STEM or language.
+        </p>
+        <h2>Benefits:</h2>
+        <p>Offers a comprehensive educational experience, encouraging students to excel across multiple disciplines, including Mathematics, Science, Languages, and Humanities.
+        </p>
+        <h2>How it works:</h2>
+        <p>
+            Attain a score of at least 40% across all subjects (the universal pass mark).
+ <br><br>
+ Sustain scores above 50% in Mathematics, Natural Science, English, and Social Science to earn 1.3x more Thuto Coins.
+ <br><br>
+ Engage in additional support sessions across various subjects to retrieve any missing Thuto Coins.
+ .
+                  <br>
+                  <br>
+                  Achieving a 40% score activates 30% of the Thuto Coins, with the remaining 60% determined by personal performance, motivating students to excel in a balanced academic environment.</p>
+    </div>
+</div>

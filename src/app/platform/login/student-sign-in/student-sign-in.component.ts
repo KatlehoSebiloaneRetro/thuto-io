@@ -19,8 +19,8 @@ export class StudentSignInComponent {
 
 student:boolean = true
 client = new Client()
-  .setEndpoint('https://appwrite.flowspaceproducitivity.com/v1')
-  .setProject('654ef9645b3a060ec136');
+  .setEndpoint('https://thuto.appwrite.nexgenlabs.co.za/v1')
+  .setProject('672b43fb00096f3a294e');
 account = new Account(this.client)
 
 

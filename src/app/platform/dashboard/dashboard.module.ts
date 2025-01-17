@@ -30,6 +30,8 @@ import { RedeemScreenComponent } from './redeem-screen/redeem-screen.component';
 import { TopUpPageComponent } from './top-up-page/top-up-page.component';
 import { DetailsComponentComponent } from './details-component/details-component.component';
 import { PersonalReportComponent } from './personal-report/personal-report.component';
+import {StoryComponent} from "./story/story.component";
+import { StoryContainerComponent } from './story-container/story-container.component'
 
 @NgModule({
   declarations: [
@@ -46,6 +48,8 @@ import { PersonalReportComponent } from './personal-report/personal-report.compo
     TopUpPageComponent,
     DetailsComponentComponent,
     PersonalReportComponent,
+    StoryComponent,
+    StoryContainerComponent
   ],
   imports: [
     CommonModule,

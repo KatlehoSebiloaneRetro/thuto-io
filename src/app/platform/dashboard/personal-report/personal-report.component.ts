@@ -12,15 +12,15 @@ export class PersonalReportComponent implements OnInit {
   constructor(private http:HttpClient) { }
   
   client = new Client()
-  .setEndpoint('https://appwrite.flowspaceproducitivity.com/v1')
-  .setProject('654ef9645b3a060ec136');
+  .setEndpoint('https://thuto.appwrite.nexgenlabs.co.za/v1')
+  .setProject('672b43fb00096f3a294e');
 
   databases = new Databases(this.client);
 
   async ReadTransactions(){
     let promise = await this.databases.listDocuments(
-      "654ef9a9319f62f3952c",
-      "654ef9b9893d07c640ba",
+      "thuto",
+      "transactions",
       [Query.limit(500),Query.equal('owner',localStorage.getItem('studentID')?.split("@")[0]||'')]
     )
     return promise.documents;
@@ -28,8 +28,8 @@ export class PersonalReportComponent implements OnInit {
 
   async ReadAssessments(){
     let promise = await this.databases.listDocuments(
-      "654ef9a9319f62f3952c",
-      "659fe319e187ce2be36c",
+      "thuto",
+      "assessments",
       [Query.limit(125),Query.equal('student_id',localStorage.getItem('studentID')||'')]
     )
     return promise.documents;
@@ -46,13 +46,13 @@ export class PersonalReportComponent implements OnInit {
   English_HL:any=[]
   Afrikaans_FAL:any=[]
 
-  Ave_Mathematics:any
-  Ave_Life_Orientation:any
-  Ave_Natural_Science_and_Technology:any
-  Ave_Economic_Management_Sciences:any
-  Ave_Social_Science:any
-  Ave_English_HL:any
-  Ave_Afrikaans_FAL:any
+  Ave_Mathematics:any = 0
+  Ave_Life_Orientation:any = 0
+  Ave_Natural_Science_and_Technology:any = 0
+  Ave_Economic_Management_Sciences:any = 0
+  Ave_Social_Science:any = 0
+  Ave_English_HL:any = 0
+  Ave_Afrikaans_FAL:any = 0
 
   subjectAverages:any=[]
 
@@ -63,29 +63,35 @@ export class PersonalReportComponent implements OnInit {
   TCCount:any = 0
   earned:any = 0 
   program_id = 'basic_Program'
-  student:any
-  subjectStats:any
+  student:any = 0
+  subjectStats:any = 0
 
-  largestSpend:any
-  smallestSpend:any
+  largestSpend:any = 0
+  smallestSpend:any = 0
 
-  bestSubject:any
-  WorstSubject:any
+  bestSubject:any = 0
+  WorstSubject:any = 0
+
+  loader = true
 
   async ReadStudent(){
     let promise = await this.databases.listDocuments(
-      "654ef9a9319f62f3952c",
-      "659500443605a8e23728",
+      "thuto",
+      "students",
       [Query.limit(2),Query.equal('email',localStorage.getItem('studentID')||'')]
     )
     return promise.documents[0];
   }
 
   async ngOnInit(): Promise<void> {
+    this.loader = true
+    this.loader = true
+    this.loader = true
+    this.loader = true
+    this.loader = true
     this.student = await this.ReadStudent()
     this.transactions = await this.ReadTransactions()
     this.assessment = await this.ReadAssessments()
-    console.log(this.transactions)
     
     this.assessment.forEach((elem:any)=>{
       if(elem.subject.toLowerCase().includes('mathematics')){
@@ -140,10 +146,16 @@ export class PersonalReportComponent implements OnInit {
     this.bestSubject = this.findLargest(this.subjectAverages)
     this.WorstSubject = this.findSmallest(this.subjectAverages)
 
+    console.log(this.transactions)
     this.largestSpend = this.findLargestNegative(this.transactions)
+    
     this.smallestSpend = this.findSmallestNegative(this.transactions)
 
+    console.log(this.largestSpend, this.smallestSpend)
+
     console.log(this.bestSubject,this.WorstSubject,this.largestSpend,this.smallestSpend)
+
+    this.loader = false
   }
 
   calculateSpent(){
@@ -183,7 +195,7 @@ export class PersonalReportComponent implements OnInit {
         return parseFloat(currentNumber.amount) < 0 && (largestNegative === null || parseFloat(currentNumber.amount) > parseFloat(largestNegative.amount))
             ? currentNumber
             : largestNegative;
-    }, null);
+    }, 0);
 }
 
 findSmallestNegative(arr:any) {
@@ -191,7 +203,7 @@ findSmallestNegative(arr:any) {
       return (currentNumber.amount) < 0 && (smallestNegative === null || parseFloat(currentNumber.amount) < parseFloat(smallestNegative.amount))
           ? currentNumber
           : smallestNegative;
-  }, null);
+  }, 0);
 }
 
 findLargest(arr:any) {
@@ -199,7 +211,7 @@ findLargest(arr:any) {
         return (largestNegative === null || parseFloat(currentNumber.amount) > parseFloat(largestNegative.amount))
             ? currentNumber
             : largestNegative;
-    }, null);
+    }, 0);
 }
 
 findSmallest(arr:any) {
@@ -207,7 +219,7 @@ findSmallest(arr:any) {
       return  (smallestNegative === null || parseFloat(currentNumber.amount) < parseFloat(smallestNegative.amount))
           ? currentNumber
           : smallestNegative;
-  }, null);
+  }, 0);
 }
 
 calculateImprovementPercentage(studentsArray:any) {
@@ -332,7 +344,7 @@ getAssessmentWithLowestMark(assessmentsArray:any) {
     this.program_id = this.program_id
     console.log(this.program_id)
     var accountTotal = this.totalDeposited
-    this.http.get("https://server.flowspaceproducitivity.com:3500/score/subject_score?studentId="+this.student.email+"&programId="+this.program_id+"&depositAmount="+accountTotal).subscribe(
+    this.http.get("http://localhost:6500/score/subject_score?studentId="+this.student.email+"&programId="+this.program_id+"&depositAmount="+accountTotal).subscribe(
       (score:any)=>{
       this.TCCount = score.toFixed(2)
       this.totalDeposited = accountTotal
@@ -367,5 +379,4 @@ getAssessmentWithLowestMark(assessmentsArray:any) {
   }
   
 }
-
 

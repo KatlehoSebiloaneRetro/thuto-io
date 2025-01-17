@@ -11,17 +11,30 @@
             </div>
         </div>
         <div id="grid">
+
+            <tui-loader
+            [overlay]="true"
+            [showLoader]="loading"
+            >
             <section class="wallet">
                 <div class="balance">
                     <div>
+                        <div id="logo"><img src="../../../../assets/ablogo.png" width="140px"></div>
                         <ul>
                             <li id="title-wallet">Total Balance</li>
                             <li id="balance-wallet"><b>TC {{balance}}</b></li>
                             </ul>
                     </div>
-                    <div id="wallet-digital"> Digital Wallet</div>
+                   
                 </div>
             </section>
+            </tui-loader>
+            <!-- <div routerLink="/ent-dash" class="wallet"> <div id="wallet-digital" style="justify-content: center; height: 10vh;margin-top:8vh;"> Studentpreneur Dashbaord</div></div> -->
+            
+            <tui-loader
+            [overlay]="true"
+            [showLoader]="loading"
+            >
             <div id="fq-score">
                 <div>
                     <div >Your FQ Score</div>
@@ -31,16 +44,24 @@
                 </div>
 
                 <div>
-                    <tui-ring-chart class="chart" [value]="[perc,residue]" [size]="'m'">
-                    </tui-ring-chart>
+                    <!-- <tui-ring-chart class="chart" [value]="[perc,residue]" [size]="'m'">
+                    </tui-ring-chart> -->
+                    <img [src]="'../../../../assets/'+animal+'.png'" alt=""/>
                 </div>
             </div>
-            <div id="acedemics">Acedemic Progress</div>
+            </tui-loader>
+
+            <tui-loader
+            [overlay]="true"
+            [showLoader]="loading"
+            >
+            <div id="acedemics">Academic Progress</div>
             <div id="side">
                 <div *ngFor="let item of subjectStats">
-                    <app-subject-summary [stats]="item"></app-subject-summary>
+                    <app-subject-summary [stats]="item"  (click)="showAssessments(item.subjectName)" ></app-subject-summary>
                 </div>
             </div>
+            </tui-loader>
         </div>
     </div>
     <div id="bar">

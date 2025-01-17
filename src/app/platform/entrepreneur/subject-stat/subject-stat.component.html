@@ -1,0 +1,9 @@
+<div id="container">
+    <div>
+        <span id="progress_color">{{mapSubjectToCategory(stats.subjectName)}}</span>
+    </div>
+    <div>
+        <progress id="bar" value="{{((stats.earned/stats.subjectWorth)*100).toFixed(2)}}" max="100"></progress>
+    </div>
+    <div id="sm_">you have earned <b>{{stats.earned.toFixed(2)}}</b> out of <b> {{stats.subjectWorth.toFixed(2)}}</b> <br/>available for this subject</div>
+</div>

@@ -20,13 +20,18 @@
         </div>
         <div>
             <div id="title_sub_option">
-                Subject Stats
+                Your Thuto Report
             </div>
+            <tui-loader
+            
+            [overlay]="true"
+            [showLoader]="loader">
+
+           
             <div id="scroll_container">
-                <div *ngFor="let stat of subjectStats">
-                    <app-subject-stat [stats]="stat"></app-subject-stat>
-                </div>
+               <app-personal-report></app-personal-report>
             </div>
+        </tui-loader>
         </div>
     </div>
     <div *ngIf="activeItemIndex==1" id="explainer">

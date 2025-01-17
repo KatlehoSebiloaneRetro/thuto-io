@@ -1,0 +1,10 @@
+<div id="container" *ngIf="isProgram">
+    <div *ngFor="let item of items">
+        <div (click)="onClick(item)" id="{{item.active?'item':''}}"><div id="{{item.active?'active':'non-active'}}">{{item.text}}</div></div>
+    </div>
+</div>
+<div id="container_large" *ngIf="!isProgram">
+    <div *ngFor="let item of items">
+        <div (click)="onClick(item)" id="{{item.active?'item':''}}"><div id="{{item.active?'active':'non-active'}}">{{item.text}}</div></div>
+    </div>
+</div>

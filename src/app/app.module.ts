@@ -8,14 +8,16 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { WebModule } from './web/web.module';
 import { PlatformModule } from './platform/platform.module';
+import { EntrepreneurModule } from "./platform/entrepreneur/entrepreneur.module";
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     WebModule,
+    EntrepreneurModule,
     PlatformModule,
       BrowserAnimationsModule,
       TuiRootModule,

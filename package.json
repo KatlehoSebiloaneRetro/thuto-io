@@ -7,13 +7,14 @@
     "build": "ng build",
     "deploy": "npm run build && firebase deploy",
     "build_deploy_testing": "npm run build && firebase hosting:channel:deploy development --expires 30d",
+    "build_deploy_testing_nwu": "npm run build && firebase hosting:channel:deploy nwu --expires 30d",
     "deploy_testing": "firebase hosting:channel:deploy development --expires 30d",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^14.2.0",
+    "@angular/animations": "^14.3.0",
     "@angular/cdk": "^14.0.0",
     "@angular/common": "^14.2.0",
     "@angular/compiler": "^14.2.0",
@@ -22,6 +23,7 @@
     "@angular/platform-browser": "^14.2.0",
     "@angular/platform-browser-dynamic": "^14.2.0",
     "@angular/router": "^14.2.0",
+    "@gugadev/wc-stories": "^1.0.0",
     "@heathmont/moon-core-tw": "^10.11.2",
     "@taiga-ui/addon-charts": "^3.57.0",
     "@taiga-ui/addon-commerce": "^3.57.0",
@@ -37,10 +39,12 @@
     "@taiga-ui/layout": "^3.57.0",
     "@taiga-ui/styles": "^3.57.0",
     "@tinkoff/ng-dompurify": "3.0.0",
+    "@webcomponents/webcomponentsjs": "^2.8.0",
     "appwrite": "^13.0.1",
     "dompurify": "2.2.9",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
+    "web-animations-js": "^2.3.2",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {

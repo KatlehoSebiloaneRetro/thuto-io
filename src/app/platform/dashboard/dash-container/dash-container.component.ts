@@ -1,24 +1,29 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { tuiHsvToRgb } from '@taiga-ui/cdk';
 import { Client, Databases, Query } from 'appwrite';
-
+import { AssessmentDialogComponent } from '../../assessment-dialog/assessment-dialog/assessment-dialog.component';
+import { TuiDialogService } from '@taiga-ui/core';
+import { PolymorpheusComponent } from '@tinkoff/ng-polymorpheus';
+import { firstValueFrom } from 'rxjs/internal/firstValueFrom';
 @Component({
   selector: 'app-dash-container',
   templateUrl: './dash-container.component.html',
   styleUrls: ['./dash-container.component.sass']
 })
 export class DashContainerComponent implements OnInit {
-
+  loading = true;
   activeItemIndex = 0;
   stats:any
   studentId:any = 51
   accountTotal:any = 1000
   subjectStats:any
-  loader = false
   client = new Client()
-  .setEndpoint('https://appwrite.flowspaceproducitivity.com/v1')
-  .setProject('654ef9645b3a060ec136');
+  .setEndpoint('https://thuto.appwrite.nexgenlabs.co.za/v1')
+  .setProject('672b43fb00096f3a294e');
+
+  
 
   databases = new Databases(this.client);
 
@@ -37,6 +42,7 @@ export class DashContainerComponent implements OnInit {
   showGood:boolean = false
   showBest:boolean = false
   showWorse:boolean = false
+  animal:string = "none"
 
   featureMap:any={}
   rating:any = 0;
@@ -49,8 +55,8 @@ export class DashContainerComponent implements OnInit {
 
 async ReadTransactions(){
   let promise = await this.databases.listDocuments(
-    "654ef9a9319f62f3952c",
-    "654ef9b9893d07c640ba",
+    "thuto",
+    "transactions",
     [Query.limit(500),Query.equal('owner',localStorage.getItem('studentID')?.split("@")[0]||'')]
   )
   return this.processArray(promise.documents);
@@ -58,8 +64,8 @@ async ReadTransactions(){
 
 async ReadStudent(){
   let promise = await this.databases.listDocuments(
-    "654ef9a9319f62f3952c",
-    "659500443605a8e23728",
+    "thuto",
+    "students",
     [Query.limit(2),Query.equal('email',localStorage.getItem('studentID')||'')]
   )
   return promise.documents[0];
@@ -118,7 +124,7 @@ searchForm = new FormGroup({
 });
 
 
-constructor(private http: HttpClient) { }
+constructor(private http: HttpClient, @Inject(TuiDialogService) private readonly dialogService: TuiDialogService) { }
 
   async ngOnInit(): Promise<void> {
     this.student = await this.ReadStudent()
@@ -127,10 +133,11 @@ constructor(private http: HttpClient) { }
     this.calculateSpent()
     this.calculateSaved()
     this.calculateDeposit()
-    this.http.get("https://server.flowspaceproducitivity.com:3500/score/subject_stats?studentId="+this.student.email+"&programId=basic_Program&depositAmount="+this.totalDeposited).subscribe(
+    this.http.get("http://localhost:6500/score/subject_stats?studentId="+this.student.email+"&programId=basic_Program&depositAmount="+this.totalDeposited).subscribe(
       (data:any)=>{
         this.subjectStats = data
-        this.loader = false
+        this.loading = false
+        console.log(this.subjectStats)
       },(err)=>{
         console.log(err)
       }
@@ -139,8 +146,66 @@ constructor(private http: HttpClient) { }
 
   calculateBalance(){
     this.transactions.forEach((transaction:any) => {
-      this.balance+=transaction.amount
+      if(transaction.item_purchased=="bank withdrawal"){
+        console.log("skipped")
+      }else{
+        this.balance+=transaction.amount
+      }
     });
+  }
+
+  async showAssessments(subject: string) {
+    try {
+      this.loading = true;
+      const response = await firstValueFrom(
+        this.http.get(`http://localhost:5001/getAssessments`, {
+          params: {
+            student_id: this.student.email
+          }
+        })
+      );
+      
+      const allAssessments = response as any[];
+      console.log('Subject we are filtering for:', subject);
+      console.log('All assessments before filter:', allAssessments);
+  
+      const subjectAssessments = [];
+      // Changed to startsWith for more flexible matching
+      for (const assessment of allAssessments) {
+        const normalizedAssessmentSubject = assessment.subject?.toString().toLowerCase().trim() || '';
+        const normalizedSearchSubject = subject?.toString().toLowerCase().trim() || '';
+        
+        console.log('Comparing:', {
+            assessmentSubject: normalizedAssessmentSubject,
+            searchSubject: normalizedSearchSubject,
+            startsWith: normalizedAssessmentSubject.startsWith(normalizedSearchSubject),
+            assessment: assessment
+        });
+    
+        if (normalizedAssessmentSubject.startsWith(normalizedSearchSubject)) {
+            subjectAssessments.push(assessment);
+        }
+    }
+  
+      console.log('Filtered assessments:', subjectAssessments);
+  
+      this.dialogService.open(
+        new PolymorpheusComponent(AssessmentDialogComponent),
+        {
+          data: {
+            subject: subject,
+            assessments: subjectAssessments,
+            loading: false
+          },
+          dismissible: true,
+          size: 'l'
+        }
+      ).subscribe();
+    } catch (error) {
+      console.error('Error fetching assessments:', error);
+    } finally {
+      this.loading = false;
+    }
   }
 
   calculateDeposit(){
@@ -156,7 +221,7 @@ constructor(private http: HttpClient) { }
   
   calculateSpent(){
     this.transactions.forEach((transaction:any) => {
-      if(transaction.amount<0){
+      if(transaction.amount<0 && transaction.item_purchased!="bank withdrawal"){
         this.spent+=transaction.amount
       }
       
@@ -164,7 +229,7 @@ constructor(private http: HttpClient) { }
   }
   calculateSaved(){
     this.transactions.forEach((transaction:any) => {
-      if(transaction.account.includes("Thuto Saver Account")){
+      if(transaction.account.includes("sav")){
         this.saved+=transaction.amount
       }
       
@@ -176,11 +241,11 @@ constructor(private http: HttpClient) { }
   
     for (let i = 0; i < resultArray.length; i++) {
         const currentObject = resultArray[i];
-        const currentValue = currentObject.item_purchased;
+        const currentValue = currentObject.amount;
   
         if (currentValue > 0) {
             // Check for the corresponding negative value
-            const correspondingIndex = resultArray.findIndex(obj => obj.item_purchased === -currentValue);
+            const correspondingIndex = resultArray.findIndex(obj => obj.amount === -currentValue);
   
             if (correspondingIndex !== -1) {
                 // Set the item_purchased field to "saved" for both objects
@@ -198,12 +263,13 @@ constructor(private http: HttpClient) { }
     this.TCCount = 0
     this.subjectStats
     this.program_id = new_program
-  
-        this.http.get("https://server.flowspaceproducitivity.com:3500/score/subject_score?studentId="+this.student.email+"&programId="+this.program_id+"&depositAmount="+this.totalDeposited).subscribe(
+    console.warn(this.totalDeposited)
+        this.http.get("http://localhost:6500/score/subject_score?studentId="+this.student.email+"&programId="+this.program_id+"&depositAmount="+this.totalDeposited).subscribe(
           (score:any)=>{
             this.TCCount = score.toFixed(2)
             console.log(this.TCCount)
             this.balance = (parseFloat(this.TCCount)+parseFloat(this.spent)).toFixed(2)
+            console.warn(this.balance);
             this.calculateFQ(this.transactions)
           
           },
@@ -215,19 +281,12 @@ constructor(private http: HttpClient) { }
   }
 
   calculateFQ(array:any){
-    let svd = this.TCCount/this.totalDeposited
-    let sve = this.spent/this.TCCount
+   let spendingRatio =1-(Math.abs(this.spent)/this.TCCount)*1.05
+   let earningRatio = (this.TCCount/this.totalDeposited)
+   let savingsRatio = (this.saved/this.TCCount)*3
+  
     
-    let totalInvested = 0
-    array.forEach((element:any) => {
-      if(element.isInvestment){
-        totalInvested+=element.amount
-      }
-    });
-
-    let svi = totalInvested/this.spent
-    
-    if(Number.isNaN(svi)){
+    if(Number.isNaN(savingsRatio)){
       this.featureMap= {
         feature1:0,
         feature2:0,
@@ -235,37 +294,35 @@ constructor(private http: HttpClient) { }
       }
     }else{
       this.featureMap= {
-        feature1:svd,
-        feature2:(1-sve),
-        feature3:svi,
+        feature1:spendingRatio,
+        feature2:earningRatio,
+        feature3:savingsRatio,
       }
     }
-
-
+    console.log(this.featureMap)
     this.score = ((((this.featureMap.feature1+this.featureMap.feature2+this.featureMap.feature3)/3)*100)*5).toFixed(2)
-    this.perc = (this.score/500)*100
-    this.residue = 100-this.perc
 
     if(this.score<245){
       this.rating = 0
       this.showWorse = true
       this.TCCount = (this.TCCount*0.9).toFixed(2)
-      this.loader = false
+      this.loading = false
+      this.animal = "mouse"
     }
     if(this.score>=245&&this.score<=345){
       this.rating = 1
       this.showGood = true
       this.TCCount = (this.TCCount*1.2).toFixed(2)
-      this.loader = false
+      this.loading = false
+      this.animal = "lion"
     }
     if(this.score>345){
       this.rating = 2
       this.showBest = true
       this.TCCount = (this.TCCount*1.4).toFixed(2)
-      this.loader = false
+      this.loading = false
+      this.animal = "camel"
     }
-
-    console.log(this.featureMap);
     
   }
 

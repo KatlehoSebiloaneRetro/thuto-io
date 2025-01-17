@@ -1,0 +1,57 @@
+<div id="container">
+    <div id="content">
+ 
+        <img src="../../../../assets/back_arrow.png" alt="" routerLink="/ent-transactions">
+        <p class="save" style="margin-bottom: 20px;">Top-up</p>
+        <form [formGroup]="searchForm">
+            Your Amount
+            <tui-input 
+            formControlName="value" 
+            [tuiTextfieldIcon]="'tuiIconDollarSignLarge'" 
+            >
+             Enter Amount
+              <input tuiTextfield />
+            </tui-input>
+          </form>
+          <img src="../../../../assets/convert.png" alt="" routerLink="/transactions">
+        <form [formGroup]="searchForm">
+            You Get
+            <tui-input 
+            formControlName="value" 
+            [tuiTextfieldIcon]="'tuiIconDollarSignLarge'" 
+            >
+             Thuto Coins
+              <input tuiTextfield />
+            </tui-input>
+          </form>
+
+          <div id="transaction-details">
+            <div style="padding:7.5px" id="heading">Transaction Details</div>
+            <hr/>
+            <div style="display: flex;padding:7.5px">
+                <div style="flex-basis: 70%;">Amount</div>
+                <div style="flex-basis: 30%;">R{{searchForm.value.value}}</div>
+            </div>
+            <div style="display: flex;padding:7.5px">
+                <div style="flex-basis: 70%;">Processing Fee</div>
+                <div style="flex-basis: 30%;">R{{(searchForm.value.value||0)*0}}</div>
+            </div>
+            <div style="display: flex;padding:7.5px">
+                <div style="flex-basis: 70%;">Average Processing Time</div>
+                <div style="flex-basis: 30%;">24hrs</div>
+            </div>
+            <hr/>
+            <div style="display: flex;padding:7.5px">
+                <div style="flex-basis: 70%;" id="heading">Total</div>
+                <div style="flex-basis: 30%;" id="heading">R{{((searchForm.value.value||0))}}</div>
+            </div>
+          </div>
+          <div style="display: flex;padding:10px;justify-content:center;">
+            <button tuiButton  class="tui-space_right-3 tui-space_bottom-3" [size]="'m'" type="submit" class="calculate" (click)="Deposit()">Deposit</button>
+          </div>
+          
+    </div>
+    <div id="bar">
+        <app-bottom-menu></app-bottom-menu>
+    </div> 
+</div>

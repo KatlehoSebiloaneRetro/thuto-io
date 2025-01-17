@@ -3,7 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  reloadlyClientId: 'IkFcDrOfWN4uqtEw01nAMpkAfHE1ZOw7',
+  reloadlyClientSecret: 'dHTgPA7R98-UUG0PLYiYIepVBvu5VQ-HTmnK9NEhs1Pdn8aO7dxmXVlHQMc8n7O',
+  PAYFAST_MERCHANT_ID: '22582041',
+  PAYFAST_MERCHANT_KEY: 'cn5ewg7v99efp',
+  passPhrase:'KatlehoSebiloane1'
 };
 
 /*

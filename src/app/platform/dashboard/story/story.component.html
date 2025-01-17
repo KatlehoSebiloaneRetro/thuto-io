@@ -1,0 +1,81 @@
+<div class="story-container">
+  <div *ngFor="let story of stories; let i = index" (click)="viewStory(story, i)">
+    <div 
+      class="story" 
+      [ngClass]="{'viewed': story.viewed}" 
+      *ngIf="story.viewed==false && showType==false"
+      [ngStyle]="{'background-color': story.color}"
+    >
+      <img id="thumbnail" [src]="story.media[0].url" alt="Story thumbnail">
+      <div style="flex-basis: 80%;">
+        {{story.title}}
+      </div>
+    </div>
+
+    <div 
+      class="story" 
+      [ngClass]="{'viewed': story.viewed}" 
+      *ngIf="showType==true && story.viewed == true"
+    >
+      <img id="thumbnail" [src]="story.media[0].url" alt="Story thumbnail">
+      <div style="flex-basis: 80%;">
+        {{story.title}}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="story-modal" *ngIf="currentStory !== null">
+  <div class="story-content">
+    <img src="../../../../assets/Close_LG.svg" alt="close icon" style="z-index: 20000000; width: 24px; height: 24px; margin: 25px;" (click)="closeStory()">
+    <div class="progress-bar-container">
+      <div *ngFor="let media of currentStory.media; let j = index" class="progress-segment">
+        <div class="progress-bar" [style.width.%]="j === currentIndex ? progress : (j < currentIndex ? 100 : 0)"></div>
+      </div>
+    </div>
+
+    <!-- '<div id="left-nav"></div>
+    <div id="right-nav"></div>' -->
+
+    <div class="media-container">
+      <img [src]="currentStory.media[currentIndex].url" alt="Story image">
+      
+      <div class="quiz-wrapper" *ngIf="currentStory.media[currentIndex].quiz">
+        <div class="quiz-container" *ngIf="!isAnswered && !currentStory.viewed">
+            <div class="quiz-question">
+              {{currentStory.media[currentIndex].quiz.question}}
+            </div>
+            
+            <div class="quiz-options">
+              <button *ngFor="let option of currentStory.media[currentIndex].quiz.options"
+                      class="quiz-option"
+                      [ngClass]="{
+                        'selected': selectedOption === option.id,
+                        'correct': isAnswered && option.isCorrect,
+                        'incorrect': isAnswered && selectedOption === option.id && !option.isCorrect
+                      }"
+                      (click)="answerQuestion(option,currentStory)"
+                      [disabled]="isAnswered">
+                {{option.text}}
+              </button>
+            </div>
+        </div>
+
+        <div class="viewed-answer" *ngIf="currentStory.viewed">
+          <div class="quiz-question viewed">
+            {{currentStory.media[currentIndex].quiz.question}}
+          </div>
+          <div class="correct-answer">
+            Correct answer: {{getCorrectAnswer(currentStory.media[currentIndex].quiz.options)}}
+          </div>
+        </div>
+      </div>
+
+      <div class="feedback-container" *ngIf="isAnswered">
+        <div class="feedback-message" [ngClass]="{'correct': isCorrectAnswer, 'incorrect': !isCorrectAnswer}">
+          {{isCorrectAnswer ? 'Correct!, you have earned some coins' : 'Try again tomorrow!'}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

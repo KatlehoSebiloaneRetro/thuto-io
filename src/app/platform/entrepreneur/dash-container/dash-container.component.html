@@ -1,0 +1,50 @@
+<div id="container">
+    
+    <div id="content">
+        <div id="header">
+            <div id="name_welcome">
+                <div>Ntsako</div>
+                <div id="welcome">Welcome Studentpreneur</div>
+            </div>
+            <div id="notification_profile">
+                <div><img src="../../../../assets/bell.png" alt=""></div>
+                <div routerLink="/login"><img src="../../../../assets/user.png" alt=""></div>
+            </div>
+        </div>
+        <div id="grid">
+            <section class="wallet">
+                <div class="balance">
+                    <div>
+                        <ul>
+                            <li id="title-wallet">Total Balance</li>
+                            <li id="balance-wallet"><b>TC {{balance}}</b></li>
+                            </ul>
+                    </div>
+                    <div id="wallet-digital"> Digital Wallet</div>
+                </div>
+            </section>
+            <div id="fq-score">
+                <div>
+                    <div >Your FQ Score</div>
+                    <br/>
+                    <div id="fq-title">{{score}}/500</div>
+
+                </div>
+
+                <div>
+                    <tui-ring-chart class="chart" [value]="[perc,residue]" [size]="'m'">
+                    </tui-ring-chart>
+                </div>
+            </div>
+            <div id="acedemics">Academic Progress</div>
+            <div id="side">
+                <div *ngFor="let item of subjectStats">
+                    <app-subject-summary [stats]="item"></app-subject-summary>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="bar">
+        <app-bottom-menu></app-bottom-menu>
+    </div> 
+</div>

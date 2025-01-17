@@ -23,15 +23,15 @@ export class DetailsComponentComponent implements OnInit {
   constructor(private http:HttpClient) { }
 
   client = new Client()
-  .setEndpoint('https://appwrite.flowspaceproducitivity.com/v1')
-  .setProject('654ef9645b3a060ec136');
+  .setEndpoint('https://thuto.appwrite.nexgenlabs.co.za/v1')
+  .setProject('672b43fb00096f3a294e');
 
   databases = new Databases(this.client);
 
   async ReadTransactions(){
     let promise = await this.databases.listDocuments(
-      "654ef9a9319f62f3952c",
-      "654ef9b9893d07c640ba",
+      "thuto",
+      "transactions",
       [Query.limit(500),Query.equal('owner',localStorage.getItem('studentID')?.split("@")[0]||'')]
     )
     return promise.documents;
@@ -39,7 +39,7 @@ export class DetailsComponentComponent implements OnInit {
 
   async ReadAssessments(){
     let promise = await this.databases.listDocuments(
-      "654ef9a9319f62f3952c",
+      "thuto",
       "659fe319e187ce2be36c",
       [Query.limit(125),Query.equal('student_id',localStorage.getItem('studentID')?.split("@")[0]||'')]
     )
@@ -52,7 +52,7 @@ export class DetailsComponentComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.loader = true
-    this.http.get("https://server.flowspaceproducitivity.com:3500/score/subject_stats?studentId="+this.studentId+"&programId=basic_Program&depositAmount="+this.accountTotal).subscribe(
+    this.http.get("http://localhost:6500/score/subject_stats?studentId="+this.studentId+"&programId=basic_Program&depositAmount="+this.accountTotal).subscribe(
       (data:any)=>{
         this.subjectStats = data
         this.loader = false
@@ -65,7 +65,7 @@ export class DetailsComponentComponent implements OnInit {
       this.isParentMode = true
     }
 
-    this.http.get("https://server.flowspaceproducitivity.com:3500/program/retrieve_all").subscribe(data=>{
+    this.http.get("http://localhost:6500/program/retrieve_all").subscribe(data=>{
       this.programs = data
       this.programs.forEach((elem:any)=>{
         this.programIDs.push(elem.id)

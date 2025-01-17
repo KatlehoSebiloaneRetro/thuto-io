@@ -1,7 +1,7 @@
 <div id="container" [style.background-color]="containerBackgroundColor">
     <div id="bont">
         <div id="name">
-            <span id="progress_color">{{mapSubjectToCategory(stats.subjectName)}}</span>
+            <span id="progress_color">{{stats.subjectName}}</span>
         </div>
         <div id="ring">
             <tui-ring-chart class="chart" [value]="[perc,residue]" [size]="'s'">

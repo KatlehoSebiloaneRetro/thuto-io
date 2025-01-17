@@ -1,11 +1,11 @@
-<div id="border">
+<div id="border" *ngIf="isHidden()">
     <div id="transaction-description">
         <div *ngIf="!isSavings"><b>{{transaction.item_purchased}}</b></div>
         <div *ngIf="isSavings"><b>Saved</b></div>
         <div>{{date}}</div>
     </div>
     <div id="transaction-amount">
-        <b>{{transaction.amount}}</b>
+        <b>{{transaction.amount.toFixed(2)}}</b>
     </div>
 </div>
-<div id="rule"></div>
+<div id="rule" *ngIf="isHidden()"></div>
