@@ -12,26 +12,16 @@
             <div routerLink="/details">
                 <div id="image"></div>
                 <div id="card_info">
-                    <div id="card_title">Balanced Program</div>
-                    <div id="card_details">The Balanced Program is crafted for schools that adopt a holistic approach to education, providing a well-rounded curriculum that encompasses various subjects without specific emphasis on STEM or language.</div>
+                    <div id="card_title">Maths Lit Program</div>
+                    <div id="card_details">The Maths Lit Program is crafted for you to be recognized and rewarded for exceptional performance in mathematical literacy.</div>
                 </div>
             </div>
            
         </div>
         <div>
-            <div id="title_sub_option">
-                Your Thuto Report
+            <div id="title_sub_option" routerLink="/report">
+                View Your Thuto Report
             </div>
-            <tui-loader
-            
-            [overlay]="true"
-            [showLoader]="loader">
-
-           
-            <div id="scroll_container">
-               <app-personal-report></app-personal-report>
-            </div>
-        </tui-loader>
         </div>
     </div>
     <div *ngIf="activeItemIndex==1" id="explainer">

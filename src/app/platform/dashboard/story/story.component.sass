@@ -13,26 +13,32 @@
   margin:10px
   border-radius:10px
   cursor: pointer
-  text-align: center
   color: black
   padding:10px
   font-size: 16px
   display: flex
-  background-color: grey
-  justify-content: center
+  justify-content: start
   align-items: center
 
 .story.viewed 
-  border-color: grey /* Change border color once viewed */
-  border-width: 1px
+  // border-color: grey /* Change border color once viewed */
+  // border-width: 1px
 
 
 /* .story img styles */
 .story img 
-  width: 80px
-  height: 80px
+  width: 60px
+  height: 60px
   object-fit: cover
   border-radius: 10000px
+  margin-right: 25px
+  border-width: 3px
+  border-color: green
+
+.story.viewed img
+  border-width: 5px
+  border-color: black
+
 
 
 /* .story-modal styles */

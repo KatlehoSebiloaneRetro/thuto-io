@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "thuto-io"
+  },
+  "targets": {
+    "thuto-io": {
+      "hosting": {
+        "thuto-io": [
+          "thuto-io"
+        ]
+      }
+    }
   }
 }

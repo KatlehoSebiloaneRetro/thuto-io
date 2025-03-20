@@ -1,0 +1,9 @@
+<div 
+  class="user-badge" 
+  routerLink="/settings"
+  [ngStyle]="{'background-color': backgroundColor}">
+  <div *ngIf="isLoading" class="loading-indicator">
+    <div class="spinner"></div>
+  </div>
+  <span *ngIf="!isLoading" class="user-initial">{{ userInitial }}</span>
+</div>

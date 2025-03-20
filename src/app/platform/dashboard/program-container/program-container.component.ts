@@ -41,7 +41,7 @@ loader = false
 programs:any = []
 programIDs:any = []
 testValue = new FormControl();
-client = new Client().setEndpoint('https://thuto.appwrite.nexgenlabs.co.za/v1').setProject('672b43fb00096f3a294e');
+client = new Client().setEndpoint('https://cloud.appwrite.io/v1').setProject('67c5088e003ce7be0f38');
 databases = new Databases(this.client);
 balance:any = 0
 spent:any = 0
@@ -54,7 +54,7 @@ async ReadTransactions(){
   let promise = await this.databases.listDocuments(
     "thuto",
     "transactions",
-    [Query.limit(500),Query.equal('owner',localStorage.getItem('studentID')?.split("@")[0]||'')]
+    [Query.limit(500),Query.equal('owner',localStorage.getItem('studentID')||'')]
   )
   return promise.documents;
 }
@@ -63,27 +63,24 @@ async ReadTransactions(){
     this.transactions = await this.ReadTransactions()
     this.loader = true
     this.calculateDeposit()
-    this.http.get("http://localhost:6500/score/subject_stats?studentId="+this.studentId+"&programId=basic_Program&depositAmount="+this.totalDeposited).subscribe(
+    this.http.get("https://thuto.server.nexgenlabs.co.za:6500/score/subject_stats?studentId="+this.studentId+"&programId=basic_Program&depositAmount="+this.totalDeposited).subscribe(
       (data:any)=>{
         this.subjectStats = data
         this.loader = false
       },(err)=>{
-        console.log(err)
       }
     )
 
-    this.http.get("http://localhost:6500/program/retrieve_all").subscribe(data=>{
+    this.http.get("https://thuto.server.nexgenlabs.co.za:6500/program/retrieve_all").subscribe(data=>{
       this.programs = data
       this.programs.forEach((elem:any)=>{
         this.programIDs.push(elem.id)
       })
-      console.log(this.programIDs)
     })
   
   }
 
   changeValue(){
-    console.log(this.testValue.value)
   }
 
   calculateDeposit(){

@@ -13,8 +13,8 @@ export class RewardsContainerComponent implements OnInit {
 constructor(private http:HttpClient) { }
 
 client = new Client()
-  .setEndpoint('https://thuto.appwrite.nexgenlabs.co.za/v1')
-  .setProject('672b43fb00096f3a294e');
+  .setEndpoint('https://cloud.appwrite.io/v1')
+  .setProject('67c5088e003ce7be0f38');
 
 databases = new Databases(this.client);
 
@@ -49,7 +49,7 @@ async ReadTransactions(){
   let promise = await this.databases.listDocuments(
     "thuto",
     "transactions",
-    [Query.limit(500),Query.equal('owner',localStorage.getItem('studentID')?.split("@")[0]||'')]
+    [Query.limit(500),Query.equal('owner',localStorage.getItem('studentID')||'')]
   )
 
   return this.processArray(promise.documents)
@@ -145,7 +145,6 @@ async ngOnInit(): Promise<void> {
     this.student = await this.ReadStudent()
     this.transactions = await this.ReadTransactions()
     this.transactions.reverse()
-    console.log(this.transactions)
     this.calculateBalance()
     this.calculateSpent()
     this.calculateSaved()
@@ -155,7 +154,7 @@ async ngOnInit(): Promise<void> {
       this.mode = true
     }
     this.gatherSpentItems()
-    this.http.get("http://localhost:6500/score/subject_stats?studentId="+this.student.email+"&programId=basic_Program&depositAmount="+this.totalDeposited).subscribe(
+    this.http.get("https://thuto.server.nexgenlabs.co.za:6500/score/subject_stats?studentId="+this.student.email+"&programId=basic_Program&depositAmount="+this.totalDeposited).subscribe(
       (data:any)=>{
         this.schoolearned = data
         this.schoolearned.forEach((item:any)=>{
@@ -170,7 +169,6 @@ async ngOnInit(): Promise<void> {
           this.loader = false
         })
       },(err)=>{
-        console.log(err)
       }
     )
     
@@ -178,13 +176,8 @@ async ngOnInit(): Promise<void> {
 
   calculateBalance(){
     this.transactions.forEach((transaction:any) => {
-      if(transaction.item_purchased=="bank withdrawal"){
-        console.log("skipped")
-      }else{
         this.balance+=transaction.amount
-      }
     });
-    console.log(this.balance)
   }
 
   calculateDeposit(){
@@ -200,7 +193,7 @@ async ngOnInit(): Promise<void> {
   
   calculateSpent(){
     this.transactions.forEach((transaction:any) => {
-      if(transaction.amount<0 && transaction.item_purchased!="bank withdrawal"){
+      if(transaction.amount<0){
         this.spent+=transaction.amount
       }
       
@@ -208,15 +201,12 @@ async ngOnInit(): Promise<void> {
   }
   calculateSaved(){
     this.transactions.forEach((transaction:any) => {
-      if(transaction.account.includes("sav")){
+      if(transaction.account.includes("saving")){
         this.saved+=transaction.amount
       }else{
-        console.log(transaction.account)
-        console.log("skipped")
       }
       
-    });
-    console.log(this.saved);
+    });;
   }
 
 
@@ -236,17 +226,15 @@ reload(new_program:any){
   this.subjectStats
   this.program_id = new_program
   console.warn(this.totalDeposited)
-      this.http.get("http://localhost:6500/score/subject_score?studentId="+this.student.email+"&programId="+this.program_id+"&depositAmount="+this.totalDeposited).subscribe(
+      this.http.get("https://thuto.server.nexgenlabs.co.za:6500/score/subject_score?studentId="+this.student.email+"&programId="+this.program_id+"&depositAmount="+this.totalDeposited).subscribe(
         (score:any)=>{
           this.TCCount = score.toFixed(2)
-          console.log(this.TCCount)
           this.balance = (parseFloat(this.TCCount)+parseFloat(this.spent)).toFixed(2)
           console.warn(this.balance);
           this.calculateFQ(this.transactions)
         
         },
         (err)=>{
-          console.log(err)
         }
       )
   
@@ -272,7 +260,6 @@ calculateFQ(array:any){
        feature3:savingsRatio,
      }
    }
-   console.log(this.featureMap)
    this.score = ((((this.featureMap.feature1+this.featureMap.feature2+this.featureMap.feature3)/3)*100)*5).toFixed(2)
 
    if(this.score<245){

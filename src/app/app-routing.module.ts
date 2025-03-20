@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './web/home/home.component';
-import { ThutorComponent } from './web/thutor/thutor.component';
+
 import { LoginSplashComponent } from './platform/login/login-splash/login-splash.component';
 import { RegisterTypeComponent } from './platform/login/register-type/register-type.component';
 import { StudentSignInComponent } from './platform/login/student-sign-in/student-sign-in.component';
@@ -24,12 +23,12 @@ import { TopUpPageComponent } from './platform/dashboard/top-up-page/top-up-page
 import { EntRedeemScreenComponent } from './platform/entrepreneur/redeem-screen/redeem-screen.component';
 import { EntTopUpPageComponent } from './platform/entrepreneur/top-up-page/top-up-page.component';
 import { StoryContainerComponent } from './platform/dashboard/story-container/story-container.component';
+import { NotificationsComponent } from './platform/dashboard/notifications/notifications.component';
+import { SettingsComponent } from './platform/dashboard/settings/settings.component';
+import { ChangePasswordComponent } from './platform/dashboard/change-password/change-password.component';
 
 const routes: Routes = [
-  { path: '',component: HomeComponent },
-  { path: 'home', component: HomeComponent },
-  { path: 'thutor', component: ThutorComponent },
-  { path: 'login', component: LoginSplashComponent },
+  { path: '',component: LoginSplashComponent },
   { path: 'register-type', component: RegisterTypeComponent },
   { path: 'sign-in', component: StudentSignInComponent },
   { path: 'dash', component: DashContainerComponent },
@@ -42,6 +41,11 @@ const routes: Routes = [
   { path: 'details', component: DetailsComponentComponent},
   { path: 'personal', component: PersonalReportComponent},
   { path: 'stories', component: StoryContainerComponent},
+  { path: 'report', component: PersonalReportComponent},
+  { path: 'notifications', component: NotificationsComponent},
+  { path: 'settings', component: SettingsComponent},
+  { path: 'change-password', component: ChangePasswordComponent},
+
 
   { path: 'ent-dash', component: EntDashContainerComponent },
   { path: 'ent-program', component: EntProgramContainerComponent },

@@ -1,64 +1,81 @@
-
-<div id="container" >
+<div id="container">
     <div id="imageer" routerLink="/login">
-
     </div>
     <div style="width: 80vw;">
         <div style="font-weight: 600; font-size: 26px; text-align: left;padding-bottom:15px;padding-top: 65px;">
-           Sign In
+            <ng-container *ngIf="!showResetForm">Sign In</ng-container>
+            <ng-container *ngIf="showResetForm">Reset Password</ng-container>
         </div>
     </div>
-    <div style="align-items: center; display: flex; flex-direction: column;">
-        <form
-        class="b-form"
-        [formGroup]="testForm"
-    >
-    <div id="inputer">
-        Student ID:
-        <tui-input
-        class="actios"
-        formControlName="StudentID"
-        tuiTextfieldSize="m"
-        [tuiTextfieldCleaner]="true"
-        [tuiTextfieldLabelOutside]="true"
-    >
-        Student ID
-        <input
-            autocomplete="email"
-            tuiTextfield
-            type="email"
-        />
-    </tui-input>
-    </div>
-    <div id="inputer">
-        Password
-        <tui-input-password
-        class="actios"
-        formControlName="Password"
-        tuiTextfieldSize="m"
-        [tuiTextfieldCleaner]="true"
-        [tuiTextfieldLabelOutside]="true"
-    >
-        Password
-        <input
-            tuiTextfield
-        />
-    </tui-input-password>
-    </div>
-    </form>
 
+    <!-- Main Login Form -->
+    <div style="align-items: center; display: flex; flex-direction: column;" *ngIf="!showResetForm">
+        <form class="b-form" [formGroup]="testForm">
+            <div id="inputer">
+                Student ID:
+                <tui-input class="actios" formControlName="StudentID" tuiTextfieldSize="m" [tuiTextfieldCleaner]="true"
+                    [tuiTextfieldLabelOutside]="true">
+                    Student ID
+                    <input autocomplete="email" tuiTextfield type="email" />
+                </tui-input>
+            </div>
+            <div id="inputer">
+                Password
+                <tui-input-password class="actios" formControlName="Password" tuiTextfieldSize="m"
+                    [tuiTextfieldCleaner]="true" [tuiTextfieldLabelOutside]="true">
+                    Password
+                    <input tuiTextfield />
+                </tui-input-password>
+            </div>
+        </form>
     </div>
 
-    <div>
-        <button tuiButton [size]="'m'" class="tui-space_right-3 tui-space_bottom-3" class="actios" (click)="signIn()">Sign In</button>
-    </div>
-    <div>
-        <button tuiButton appearance="outline" class="tui-space_right-3 tui-space_bottom-3" class="actios" [size]="'m'" *ngIf="student" (click)="toggleStudent()">Sign In as a parent</button>
+    <!-- Password Reset Form -->
+    <div style="align-items: center; display: flex; flex-direction: column;" *ngIf="showResetForm && !resetEmailSent">
+        <form class="b-form" [formGroup]="resetPasswordForm">
+            <div id="inputer">
+                Email Address:
+                <tui-input class="actios" formControlName="email" tuiTextfieldSize="m" [tuiTextfieldCleaner]="true"
+                    [tuiTextfieldLabelOutside]="true">
+                    Email Address
+                    <input autocomplete="email" tuiTextfield type="email" />
+                </tui-input>
+            </div>
+        </form>
     </div>
 
-    <div style=" flex-grow:1;width: 80vw;padding:10px;text-align: center;font-size: 14px;font-weight: 500;">Forgot password? Click here to <span style="color: blue; font-weight: 600;"> reset your
-        password </span></div>
-    <div style="width: 80vw;padding:10px;text-align: center;font-size: 14px;font-weight: 500;">By signing in you agree with our Terms of Services 
+    <!-- Reset Email Sent Confirmation -->
+    <div style="align-items: center; display: flex; flex-direction: column;" *ngIf="showResetForm && resetEmailSent">
+        <div style="text-align: center; margin-bottom: 20px;">
+            <p>Password reset email has been sent!</p>
+            <p>Please check your inbox and follow the instructions to reset your password.</p>
+        </div>
+    </div>
+
+    <!-- Action Buttons for Login -->
+    <div *ngIf="!showResetForm">
+        <button tuiButton [size]="'m'" class="tui-space_right-3 tui-space_bottom-3 actios" (click)="signIn()">Sign In</button>
+    </div>
+    <div *ngIf="!showResetForm">
+        <button tuiButton appearance="outline" class="tui-space_right-3 tui-space_bottom-3 actios" [size]="'m'"
+            *ngIf="student" (click)="toggleStudent()">Sign In as a parent</button>
+    </div>
+
+    <!-- Action Buttons for Password Reset -->
+    <div *ngIf="showResetForm && !resetEmailSent">
+        <button tuiButton [size]="'m'" class="tui-space_right-3 tui-space_bottom-3 actios"
+            (click)="sendPasswordReset()">Send Reset Link</button>
+    </div>
+    <div *ngIf="showResetForm">
+        <button tuiButton appearance="outline" class="tui-space_right-3 tui-space_bottom-3 actios" [size]="'m'"
+            (click)="backToLogin()">Back to Login</button>
+    </div>
+
+    <!-- Footer Links -->
+    <div style="flex-grow:1;width: 80vw;padding:10px;text-align: center;font-size: 14px;font-weight: 500;" *ngIf="!showResetForm">
+        Forgot password? Click <span style="color: blue; font-weight: 600; cursor: pointer;" (click)="toggleResetForm()">here</span> to reset your password
+    </div>
+    <div style="width: 80vw;padding:10px;text-align: center;font-size: 14px;font-weight: 500;">By signing in you agree
+        with our Terms of Services
         and accept our Privacy Policy</div>
-
 </div>

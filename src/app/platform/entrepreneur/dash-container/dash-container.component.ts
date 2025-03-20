@@ -17,8 +17,8 @@ export class EntDashContainerComponent implements OnInit {
   subjectStats:any
   loader = false
   client = new Client()
-  .setEndpoint('https://thuto.appwrite.nexgenlabs.co.za/v1')
-  .setProject('672b43fb00096f3a294e');
+  .setEndpoint('https://cloud.appwrite.io/v1')
+  .setProject('67c5088e003ce7be0f38');
 
   databases = new Databases(this.client);
 
@@ -51,7 +51,7 @@ async ReadTransactions(){
   let promise = await this.databases.listDocuments(
     "thuto",
     "transactions",
-    [Query.limit(500),Query.equal('owner',localStorage.getItem('studentID')?.split("@")[0]||'')]
+    [Query.limit(500),Query.equal('owner',localStorage.getItem('studentID')||'')]
   )
   return this.processArray(promise.documents);
 }
@@ -127,12 +127,11 @@ constructor(private http: HttpClient) { }
     this.calculateSpent()
     this.calculateSaved()
     this.calculateDeposit()
-    this.http.get("http://localhost:6500/score/subject_stats?studentId="+this.student.email+"&programId=basic_Program&depositAmount="+this.totalDeposited).subscribe(
+    this.http.get("https://thuto.server.nexgenlabs.co.za:6500/score/subject_stats?studentId="+this.student.email+"&programId=basic_Program&depositAmount="+this.totalDeposited).subscribe(
       (data:any)=>{
         this.subjectStats = data
         this.loader = false
       },(err)=>{
-        console.log(err)
       }
     )
   }
@@ -199,16 +198,14 @@ constructor(private http: HttpClient) { }
     this.subjectStats
     this.program_id = new_program
   
-        this.http.get("http://localhost:6500/score/subject_score?studentId="+this.student.email+"&programId="+this.program_id+"&depositAmount="+this.totalDeposited).subscribe(
+        this.http.get("https://thuto.server.nexgenlabs.co.za:6500/score/subject_score?studentId="+this.student.email+"&programId="+this.program_id+"&depositAmount="+this.totalDeposited).subscribe(
           (score:any)=>{
             this.TCCount = score.toFixed(2)
-            console.log(this.TCCount)
             this.balance = (parseFloat(this.TCCount)+parseFloat(this.spent)).toFixed(2)
             this.calculateFQ(this.transactions)
           
           },
           (err)=>{
-            console.log(err)
           }
         )
     
@@ -265,7 +262,6 @@ constructor(private http: HttpClient) { }
       this.loader = false
     }
 
-    console.log(this.featureMap);
     
   }
 

@@ -1,0 +1,34 @@
+<div class="notification-container" *ngIf="showNotification && currentNotification" [@slideInOut]>
+  <div class="notification-content">
+    <div class="notification-header">
+      <h3>{{ currentNotification.title }}</h3>
+      <div class="timer">{{ formatTime(remainingTime) }}</div>
+      <button class="close-button" (click)="hideNotification()">×</button>
+    </div>
+    <div class="notification-body">
+      <p>{{ currentNotification.body }}</p>
+      <form [formGroup]="markForm" (ngSubmit)="submitMark()" class="mark-form">
+        <div class="form-group">
+          <input 
+            type="number" 
+            formControlName="marks" 
+            placeholder="Enter marks"
+            [readonly]="isProcessing"
+            class="mark-input"
+          >
+          <button 
+            type="submit" 
+            [disabled]="markForm.invalid || isProcessing"
+            class="submit-button"
+          >
+            <span *ngIf="!isProcessing">Submit</span>
+            <div *ngIf="isProcessing" class="loader"></div>
+          </button>
+        </div>
+        <div class="error-message" *ngIf="markForm.get('marks')?.errors && markForm.get('marks')?.touched">
+          Please enter a valid mark between 0 and 100
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -83,14 +83,13 @@ export class  EntRedeemScreenComponent implements OnInit {
 
 
   client = new Client()
-    .setEndpoint('https://thuto.appwrite.nexgenlabs.co.za/v1')
-    .setProject('672b43fb00096f3a294e');
+    .setEndpoint('https://cloud.appwrite.io/v1')
+    .setProject('67c5088e003ce7be0f38');
 
   databases = new Databases(this.client);
 
   async ngOnInit(): Promise<void> {
     this.items = await this.readShopItems()
-    console.log(this.items)
   }
 
   async readShopItems(){
@@ -107,13 +106,13 @@ export class  EntRedeemScreenComponent implements OnInit {
     
     let value:number = this.amountForm.value.value || 0
     let purchase ={
-      owner:localStorage.getItem('studentID')?.split("@")[0],
+      owner:localStorage.getItem('studentID'),
       amount:-1*value,
       isInvestment:false,
       date: Date.now().toString(),
       time: Date.now().toString(),
       item_purchased: "bank withdrawal",
-      account:localStorage.getItem('studentID')?.split("@")[0]+" transactional"
+      account:localStorage.getItem('studentID')+" transactional"
     }
 
     const promise1 = this.databases.createDocument(
@@ -127,10 +126,8 @@ export class  EntRedeemScreenComponent implements OnInit {
       this.purchased = true
       this.closeDialog()
       
-      console.log(response);
       
   }, function (error) {
-      console.log(error);
   });
   
   }

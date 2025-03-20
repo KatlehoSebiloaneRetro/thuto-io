@@ -1,0 +1,72 @@
+<div class="settings-container">
+    <div class="settings-header">
+        <h1>Settings</h1>
+        <button tuiIconButton type="button" icon="tuiIconArrowLeft" appearance="flat" 
+            class="back-button" (click)="goToDashboard()">
+        </button>
+    </div>
+
+    <!-- Loading indicator -->
+    <div *ngIf="isLoading" class="loading-spinner">
+        <tui-loader class="loader"></tui-loader>
+    </div>
+
+    <!-- Settings content when loaded -->
+    <div *ngIf="!isLoading" class="settings-content">
+        <!-- Account section -->
+        <div class="settings-section">
+            <h2>Account Information</h2>
+            <div class="account-info">
+                <div class="info-row">
+                    <span class="info-label">Name:</span>
+                    <span class="info-value">{{ userName }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Email:</span>
+                    <span class="info-value">{{ userEmail }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Account Type:</span>
+                    <span class="info-value">{{ isParentMode ? 'Parent' : 'Student' }}</span>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Security section -->
+        <div class="settings-section">
+            <h2>Security</h2>
+            <div class="security-actions">
+                <button 
+                    tuiButton 
+                    appearance="outline" 
+                    class="security-button"
+                    routerLink="/change-password">
+                    Change Password
+                </button>
+            </div>
+        </div>
+
+        <!-- Actions section -->
+        <div class="settings-section">
+            <h2>Actions</h2>
+            <div class="action-buttons">
+                <button 
+                    tuiButton 
+                    appearance="secondary"
+                    (click)="clearLocalStorage()"
+                    class="action-button">
+                    Clear App Data
+                </button>
+                
+                <button 
+                    tuiButton 
+                    appearance="accent"
+                    class="action-button danger-button"
+                    (click)="logout()">
+                    Logout
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

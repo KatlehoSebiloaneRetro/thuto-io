@@ -31,7 +31,12 @@ import { TopUpPageComponent } from './top-up-page/top-up-page.component';
 import { DetailsComponentComponent } from './details-component/details-component.component';
 import { PersonalReportComponent } from './personal-report/personal-report.component';
 import {StoryComponent} from "./story/story.component";
-import { StoryContainerComponent } from './story-container/story-container.component'
+import { StoryContainerComponent } from './story-container/story-container.component';
+import { NotificationComponent } from './notification/notification.component';
+import { NotificationsComponent } from './notifications/notifications.component';
+import { SettingsComponent } from './settings/settings.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { UserBadgeComponent } from './user-badge/user-badge.component'
 
 @NgModule({
   declarations: [
@@ -49,7 +54,12 @@ import { StoryContainerComponent } from './story-container/story-container.compo
     DetailsComponentComponent,
     PersonalReportComponent,
     StoryComponent,
-    StoryContainerComponent
+    StoryContainerComponent,
+    NotificationComponent,
+    NotificationsComponent,
+    SettingsComponent,
+    ChangePasswordComponent,
+    UserBadgeComponent
   ],
   imports: [
     CommonModule,

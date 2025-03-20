@@ -10,6 +10,44 @@
             celebrating their efforts and achievements.</p>
 
         <div *ngIf="purchased==false">
+            <p class="voucher_types">Withdraw to Bank</p>
+            <div >
+                <form [formGroup]="amountForm">
+                    <tui-input formControlName="bank" class="actios">
+                        Bank
+                        <input tuiTextfield placeholder="Bank Name" />
+                    </tui-input>
+                    <br/>
+                    <tui-input formControlName="account_number" class="actios">
+                        Account Number
+                        <input tuiTextfield placeholder="000000000" />
+                    </tui-input>
+                    <br/>
+                    <tui-input formControlName="value" class="actios">
+                        Amount
+                        <input tuiTextfield />
+                    </tui-input>
+                    
+             
+                    
+                    <div class="error-message" *ngIf="amountForm.get('value')?.touched && amountForm.get('value')?.invalid">
+                        Please enter an amount greater than 5
+                    </div>
+                </form>
+                
+                <button 
+                    tuiButton 
+                    class="tui-space_right-3 tui-space_bottom-3" 
+                    [size]="'m'" 
+                    class="calculate"
+                    [disabled]="loading"
+                    (click)="showDialog(withdraw)">
+                    {{loading ? 'Processing...' : 'Purchase'}}
+                </button>
+            </div>
+
+
+            
             <p class="voucher_types">Airtime Voucher</p>
             <div style="display: flex; margin-left:2rem; margin-bottom:1rem">
                 <div *ngFor="let item of items">
@@ -50,29 +88,28 @@
             </div>
             
             <p class="voucher_types">Gaming Voucher</p>
-            <div style="display: flex; margin-left:2rem;margin-bottom:1rem">
-                <div *ngFor="let item of items">
-                    <img src="{{item.image}}" alt="" *ngIf="item.type =='gaming'" (click)="setItem(item)">
+            <div style="display: flex; flex-direction: column; margin-left:2rem;margin-bottom:1rem">
+                <div *ngFor="let item of items" style="margin-bottom: 1rem;">
+                    <img src="{{item.image}}" alt="" style="width: 85%;" height="100px" *ngIf="item.type =='gaming'" (click)="setItem(item)">
                 </div>
             </div>
             <div *ngIf="isGamingSelected">
                 <div class="voucher_types">{{current_item.brand}}</div>
                 <form [formGroup]="amountForm">
-                    <tui-select
-                        formControlName="denomination"
-                        class="actios"
-                        [valueContent]="denominationContent"
-                        (ngModelChange)="onDenominationChange($event)">
-                        Denomination
-                        <tui-data-list-wrapper
-                            *tuiDataList
-                            [items]="current_item.denominations">
-                            <ng-template let-item tuiDataListItem>
-                                {{item.label}} - TC {{item.value}}
-                            </ng-template>
-                        </tui-data-list-wrapper>
-                    </tui-select>
-                </form>
+                    <tui-combo-box
+                      formControlName="denomination"
+                      [stringify]="stringifyDenomination"
+                      class="actios"
+                      (ngModelChange)="onDenominationChange($event)"
+                    >
+                      Denomination
+                      <tui-data-list-wrapper
+                        *tuiDataList
+                        [itemContent]="stringifyDenomination | tuiStringifyContent"
+                        [items]="current_item.denominations"
+                      ></tui-data-list-wrapper>
+                    </tui-combo-box>
+                  </form>
                 <button 
                     tuiButton 
                     class="tui-space_right-3 tui-space_bottom-3" 
@@ -116,6 +153,31 @@
                     Cancel
                 </button>
             </ng-template>
+
+            <ng-template #withdraw let-observer>
+                <p>
+                    Are you sure you want to withdraw R{{amountForm.value.value}} to this account {{amountForm.value.account_number}} bank {{amountForm.value.bank}}?
+                </p>
+               
+            
+                <button
+                    size="m"
+                    tuiButton
+                    type="button"
+                    class="tui-space_right-3"
+                    [disabled]="loading"
+                    (click)="makeWithdrawal()">
+                    {{loading ? 'Processing...' : 'Yes, I am sure'}}
+                </button>
+                <button
+                    size="m"
+                    tuiButton
+                    type="button"
+                    [disabled]="loading"
+                    (click)="observer.complete()">
+                    Cancel
+                </button>
+            </ng-template>
             
             <!-- Add this template for denomination display -->
             <ng-template #denominationContent let-item>
@@ -129,7 +191,8 @@
 
         </div>
         <div *ngIf="purchased==true">
-            <p class="voucher_types">Purchase Successful [{{current_item.brand}}]</p>
+            <p *ngIf="current_item!=null" class="voucher_types">Purchase Successful [{{current_item.brand}}]</p>
+            <p *ngIf="current_item==null" class="voucher_types">Withdrawl Successful please check your account after 5-7 business days</p>
             <button tuiButton  class="tui-space_right-3 tui-space_bottom-3" [size]="'m'" class="calculate" (click)="back()" >Continue Shopping</button>
         </div>
 
@@ -191,3 +254,9 @@ let-observer
         Cancel
     </button>
 </ng-template>
+
+<ng-template #denominationContent let-item>
+    <div class="tui-space_vertical-4" *ngIf="item">
+      {{item?.label}} - TC {{item?.value}}
+    </div>
+  </ng-template>

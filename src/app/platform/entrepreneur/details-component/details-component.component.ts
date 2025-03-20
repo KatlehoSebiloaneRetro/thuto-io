@@ -23,8 +23,8 @@ export class EntDetailsComponentComponent implements OnInit {
   constructor(private http:HttpClient) { }
 
   client = new Client()
-  .setEndpoint('https://thuto.appwrite.nexgenlabs.co.za/v1')
-  .setProject('672b43fb00096f3a294e');
+  .setEndpoint('https://cloud.appwrite.io/v1')
+  .setProject('67c5088e003ce7be0f38');
 
   databases = new Databases(this.client);
 
@@ -32,7 +32,7 @@ export class EntDetailsComponentComponent implements OnInit {
     let promise = await this.databases.listDocuments(
       "thuto",
       "transactions",
-      [Query.limit(500),Query.equal('owner',localStorage.getItem('studentID')?.split("@")[0]||'')]
+      [Query.limit(500),Query.equal('owner',localStorage.getItem('studentID')||'')]
     )
     return promise.documents;
   }
@@ -41,7 +41,7 @@ export class EntDetailsComponentComponent implements OnInit {
     let promise = await this.databases.listDocuments(
       "thuto",
       "659fe319e187ce2be36c",
-      [Query.limit(125),Query.equal('student_id',localStorage.getItem('studentID')?.split("@")[0]||'')]
+      [Query.limit(125),Query.equal('student_id',localStorage.getItem('studentID')||'')]
     )
     return promise.documents;
   }
@@ -52,12 +52,11 @@ export class EntDetailsComponentComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.loader = true
-    this.http.get("http://localhost:6500/score/subject_stats?studentId="+this.studentId+"&programId=basic_Program&depositAmount="+this.accountTotal).subscribe(
+    this.http.get("https://thuto.server.nexgenlabs.co.za:6500/score/subject_stats?studentId="+this.studentId+"&programId=basic_Program&depositAmount="+this.accountTotal).subscribe(
       (data:any)=>{
         this.subjectStats = data
         this.loader = false
       },(err)=>{
-        console.log(err)
       }
     )
 
@@ -70,7 +69,6 @@ export class EntDetailsComponentComponent implements OnInit {
       this.programs.forEach((elem:any)=>{
         this.programIDs.push(elem.id)
       })
-      console.log(this.programIDs)
     })
 
 
@@ -78,7 +76,6 @@ export class EntDetailsComponentComponent implements OnInit {
   }
 
   changeValue(){
-    console.log(this.testValue.value)
   }
 
 }

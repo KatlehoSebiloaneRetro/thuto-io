@@ -1,0 +1,62 @@
+<div style="margin: 25px; margin-top:75px">
+
+  <div>
+      <img src="../../../../assets/back_arrow.png" alt="" routerLink="/dash">
+      <h1 style="margin: 2rem;font-family: 'montserrat';font-weight: 600; font-size: 18px; margin-bottom: 24px;">Your Notifications & Self Reports:</h1>
+  </div>
+
+  <div class="notifications-container" [ngClass]="getPositionClass()">
+      <div 
+        *ngFor="let notification of notifications" 
+        class="notification" 
+        [ngClass]="'info'"
+        [@notificationAnimation]
+        (click)="openMarkRecordingForm(notification)"
+        #notificationElement
+        (touchstart)="onTouchStart($event, notification.id)"
+        (touchmove)="onTouchMove($event, notificationElement)"
+        (touchend)="onTouchEnd($event, notificationElement)">
+        
+        <!-- Icon -->
+        <div class="notification__icon" *ngIf="notification.icon">
+          <i [class]="notification.icon"></i>
+        </div>
+        <div class="notification__icon" *ngIf="!notification.icon">
+          <!-- Default icons based on notification type -->
+          <i *ngIf="notification.type === 'info'" class="fas fa-info-circle"></i>
+          <i *ngIf="notification.type === 'success'" class="fas fa-check-circle"></i>
+          <i *ngIf="notification.type === 'warning'" class="fas fa-exclamation-triangle"></i>
+          <i *ngIf="notification.type === 'error'" class="fas fa-times-circle"></i>
+        </div>
+        
+        <!-- Content -->
+        <div class="notification__content">
+          <div class="notification__title" *ngIf="notification.title">{{ notification.title }}</div>
+          <div class="notification__message">{{ notification.message }}</div>
+          <div class="notification__action" *ngIf="notification.actionText">
+            {{ notification.actionText }}
+          </div>
+        </div>
+        
+        <!-- Close button -->
+        <button class="notification__close" (click)="removeNotification(notification.id); $event.stopPropagation()">
+          <i class="fas fa-times"></i>
+        </button>
+        
+        <!-- Progress bar for auto-close -->
+        <div *ngIf="autoClose && notification.autoClose !== false" class="notification__progress">
+          <div class="notification__progress-bar" 
+               [style.animation-duration.ms]="notification.duration || duration"></div>
+        </div>
+      </div>
+  </div>
+  
+  <!-- Empty state message when no notifications exist -->
+  <div *ngIf="notifications.length === 0" class="empty-notifications">
+      <i class="fas fa-bell-slash"></i>
+      <p>You don't have any notifications yet</p>
+  </div>
+
+  <!-- Add the notification component for mark recording -->
+  <app-notification></app-notification>
+</div>

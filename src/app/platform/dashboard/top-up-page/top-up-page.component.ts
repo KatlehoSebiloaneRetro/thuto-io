@@ -29,8 +29,8 @@ export class TopUpPageComponent implements OnInit {
   });
 
   client = new Client()
-    .setEndpoint('https://thuto.appwrite.nexgenlabs.co.za/v1')
-    .setProject('672b43fb00096f3a294e');
+    .setEndpoint('https://cloud.appwrite.io/v1')
+    .setProject('67c5088e003ce7be0f38');
 
   databases = new Databases(this.client);
 
@@ -44,12 +44,12 @@ export class TopUpPageComponent implements OnInit {
     this.payFastForm = document.createElement('form');
     this.payFastForm.method = 'POST';
     this.payFastForm.action = environment.production 
-      ? 'https://www.payfast.co.za/eng/process'
+      ? 'https://sandbox.payfast.co.za/eng/process'
       : 'https://sandbox.payfast.co.za/eng/process';
   }
 
   private generatePaymentReference(): string {
-    return `THUTO-${this.studentOwner?.split('@')[0]}-${Date.now()}`;
+    return `THUTO-${this.studentOwner}-${Date.now()}`;
   }
 
   async Deposit() {
@@ -66,7 +66,7 @@ export class TopUpPageComponent implements OnInit {
         merchant_key: this.MERCHANT_KEY,
         return_url: this.RETURN_URL,
         cancel_url: this.CANCEL_URL,
-        name_first: this.studentOwner?.split('@')[0] || 'Student',
+        name_first: this.studentOwner || 'Student',
         email_address: this.studentOwner || '',
         m_payment_id: paymentRef,
         amount: amount.toFixed(2),
@@ -93,13 +93,13 @@ export class TopUpPageComponent implements OnInit {
               'transactions',
               ID.unique(),
               {
-                owner: this.studentOwner?.split('@')[0],
+                owner: this.studentOwner,
                 amount: amount,
                 isInvestment: false,
                 date: Date.now().toString(),
                 time: Date.now().toString(),
                 item_purchased: "Parent deposit",
-                account: this.studentOwner?.split('@')[0] + " transactional",
+                account: this.studentOwner + " transactional",
               }
             );
 

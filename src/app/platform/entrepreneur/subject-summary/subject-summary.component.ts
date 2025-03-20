@@ -44,7 +44,7 @@ export class SubjectSummaryComponent implements OnInit {
             return "Commerce In Education";
         case "Natural Science and Technology":
             return "Business Mathematics and Informatics";
-        case "Economic Management Sciences":
+        case "Mathematics":
             return "Business Account and Economic Sciences";
         case "Mathematics":
             return "Business In Engineering";

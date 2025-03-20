@@ -12,8 +12,8 @@ export class EntPersonalReportComponent implements OnInit {
   constructor(private http:HttpClient) { }
   
   client = new Client()
-  .setEndpoint('https://thuto.appwrite.nexgenlabs.co.za/v1')
-  .setProject('672b43fb00096f3a294e');
+  .setEndpoint('https://cloud.appwrite.io/v1')
+  .setProject('67c5088e003ce7be0f38');
 
   databases = new Databases(this.client);
 
@@ -21,7 +21,7 @@ export class EntPersonalReportComponent implements OnInit {
     let promise = await this.databases.listDocuments(
       "thuto",
       "transactions",
-      [Query.limit(500),Query.equal('owner',localStorage.getItem('studentID')?.split("@")[0]||'')]
+      [Query.limit(500),Query.equal('owner',localStorage.getItem('studentID')||'')]
     )
     return promise.documents;
   }
@@ -85,7 +85,6 @@ export class EntPersonalReportComponent implements OnInit {
     this.student = await this.ReadStudent()
     this.transactions = await this.ReadTransactions()
     this.assessment = await this.ReadAssessments()
-    console.log(this.transactions)
     
     this.assessment.forEach((elem:any)=>{
       if(elem.subject.toLowerCase().includes('mathematics')){
@@ -116,7 +115,6 @@ export class EntPersonalReportComponent implements OnInit {
     this.calculateSpent()
     this.calculateSaved()
     this.calculateBalance()
-    console.log(this.totalDeposited)
     this.reload()
 
 
@@ -132,7 +130,7 @@ export class EntPersonalReportComponent implements OnInit {
     this.subjectAverages.push({subject:'Mathematics',amount: this.Ave_Mathematics})
     this.subjectAverages.push({subject:'Life Orientation',amount: this.Ave_Life_Orientation})
     this.subjectAverages.push({subject:'Natural Science and Technology',amount: this.Ave_Natural_Science_and_Technology})
-    this.subjectAverages.push({subject:'Economic Management Sciences',amount: this.Ave_Economic_Management_Sciences})
+    this.subjectAverages.push({subject:'Mathematics',amount: this.Ave_Economic_Management_Sciences})
     this.subjectAverages.push({subject:'Social Science',amount: this.Ave_Social_Science})
     this.subjectAverages.push({subject:'English HL',amount: this.Ave_English_HL})
     this.subjectAverages.push({subject:'Afrikaans FAL',amount: this.Ave_Afrikaans_FAL})
@@ -142,8 +140,6 @@ export class EntPersonalReportComponent implements OnInit {
 
     this.largestSpend = this.findLargestNegative(this.transactions)
     this.smallestSpend = this.findSmallestNegative(this.transactions)
-
-    console.log(this.bestSubject,this.WorstSubject,this.largestSpend,this.smallestSpend)
   }
 
   calculateSpent(){
@@ -330,17 +326,15 @@ getAssessmentWithLowestMark(assessmentsArray:any) {
   reload(){
     this.TCCount = 0
     this.program_id = this.program_id
-    console.log(this.program_id)
     var accountTotal = this.totalDeposited
-    this.http.get("http://localhost:6500/score/subject_score?studentId="+this.student.email+"&programId="+this.program_id+"&depositAmount="+accountTotal).subscribe(
+    this.http.get("https://thuto.server.nexgenlabs.co.za:6500/score/subject_score?studentId="+this.student.email+"&programId="+this.program_id+"&depositAmount="+accountTotal).subscribe(
       (score:any)=>{
       this.TCCount = score.toFixed(2)
       this.totalDeposited = accountTotal
   
       this.balance = (parseFloat(this.TCCount)+parseFloat(this.spent))
-      console.log(this.balance)},
+      },
       (err)=>{
-        console.log(err)
     })
   }
 
@@ -356,7 +350,7 @@ getAssessmentWithLowestMark(assessmentsArray:any) {
             return "Commerce In Education";
         case "Natural Science and Technology":
             return "Business Mathematics and Informatics";
-        case "Economic Management Sciences":
+        case "Mathematics":
             return "Business Account and Economic Sciences";
         case "Mathematics":
             return "Business In Engineering";

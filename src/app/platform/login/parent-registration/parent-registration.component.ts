@@ -35,8 +35,8 @@ export class ParentRegistrationComponent implements OnInit {
   });
 
   client = new Client()
-  .setEndpoint('https://thuto.appwrite.nexgenlabs.co.za/v1')
-  .setProject('672b43fb00096f3a294e');
+  .setEndpoint('https://cloud.appwrite.io/v1')
+  .setProject('67c5088e003ce7be0f38');
 
   databases = new Databases(this.client);
   account = new Account(this.client);
@@ -56,7 +56,6 @@ export class ParentRegistrationComponent implements OnInit {
   }
 
   async checkStudent(){
-    console.log('running check')
     this.student = await this.ReadStudent(this.studentForm.value.schoolID||'')
     if(this.studentForm.value.schoolID?.includes(this.student.email)){
       this.studentForm.patchValue({
@@ -70,7 +69,6 @@ export class ParentRegistrationComponent implements OnInit {
         grade: this.student.grade,
         class: this.student.class
       });
-      console.log(this.studentForm)
     }
   }
 
@@ -86,25 +84,21 @@ export class ParentRegistrationComponent implements OnInit {
 
     const promiseDatabase = this.databases.createDocument(
         'thuto',
-        '6595003dbcd19860aff5',
+        'parents',
         ID.unique(),
         parent
     );
     
     promiseDatabase.then( (response)=> {
         localStorage.setItem('studentID',this.studentForm.value.schoolID||'')
-        console.log(response);
     }, function (error) {
-        console.log(error);
     });
 
 
     const promiseAccount = this.account.create(ID.unique(), this.parentForm.value.emailAddress||'', this.parentForm.value.password||'');
     promiseAccount.then((response)=> {
-        console.log(response);
         this.router.navigate(["/top-up"])
     }, function (error) {
-        console.log(error);
     });
   }
 

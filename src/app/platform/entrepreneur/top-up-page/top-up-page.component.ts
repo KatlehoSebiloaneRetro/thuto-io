@@ -17,8 +17,8 @@ export class EntTopUpPageComponent implements OnInit {
   });
   
   client = new Client()
-  .setEndpoint('https://thuto.appwrite.nexgenlabs.co.za/v1')
-  .setProject('672b43fb00096f3a294e');
+  .setEndpoint('https://cloud.appwrite.io/v1')
+  .setProject('67c5088e003ce7be0f38');
 
 databases = new Databases(this.client);
 
@@ -32,13 +32,13 @@ databases = new Databases(this.client);
   Deposit(){
     let value:number = this.searchForm.value.value || 0
     let purchase ={
-      owner:this.studentOwner?.split('@')[0],
+      owner:this.studentOwner,
       amount:value,
       isInvestment:false,
       date: Date.now().toString(),
       time: Date.now().toString(),
       item_purchased: "Entrepreneur deposit",
-      account:this.studentOwner?.split('@')[0]+" transactional"
+      account:this.studentOwner+" transactional"
     }
 
     const promise1 = this.databases.createDocument(
@@ -49,9 +49,7 @@ databases = new Databases(this.client);
   );
 
     promise1.then(function (response) {
-      console.log(response);
   }, function (error) {
-      console.log(error);
   });
   }
 

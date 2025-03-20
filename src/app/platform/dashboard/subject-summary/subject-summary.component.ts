@@ -22,7 +22,7 @@ export class SubjectSummaryComponent implements OnInit {
     {subject: "Afrikaans FAL", color:"#27AB87"},
     {subject: "Life Orientation", color:"#0078BD"},
     {subject: "Natural Science and Technology", color:"#EBA5C5"},
-    {subject: "Economic Management Sciences", color:"#EE936F"}
+    {subject: "Mathematics", color:"#EE936F"}
 ]
   
 
@@ -43,7 +43,6 @@ export class SubjectSummaryComponent implements OnInit {
   }
 
   getRandomColorWithContrast() {
-    console.log(this.stats)
 
     this.colors.forEach((elem:any) => {
       const subjectName = this.stats.subjectName.toLowerCase();

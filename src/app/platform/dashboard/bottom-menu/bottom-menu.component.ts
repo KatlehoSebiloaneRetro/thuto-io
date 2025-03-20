@@ -11,6 +11,7 @@ export class BottomMenuComponent implements OnInit {
 
   currentRoute: string = '';
   activeColor: string = '#007AFF'; // Or any color you prefer for active state
+  isParentMode: boolean = false;
 
   constructor(private router: Router) {
     this.router.events.pipe(
@@ -22,6 +23,7 @@ export class BottomMenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentRoute = this.router.url;
+    this.isParentMode = localStorage.getItem("parentMode")?.includes("true") || false;
   }
 
   isActive(route: string): boolean {

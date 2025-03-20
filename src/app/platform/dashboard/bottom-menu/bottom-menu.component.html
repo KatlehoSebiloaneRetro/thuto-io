@@ -34,7 +34,7 @@
         [attr.fill]="isActive('/transactions') ? activeColor : 'black'"/>
     </svg>
   </div>
-  <div id="item" [routerLink]="'/stories'" [class.active]="isActive('/stories')">
+  <div id="item" *ngIf="!isParentMode" [routerLink]="'/stories'" [class.active]="isActive('/stories')">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="12" cy="12" r="10.5" 
         [attr.stroke]="isActive('/stories') ? activeColor : 'black'" 
